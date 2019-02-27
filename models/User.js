@@ -24,6 +24,10 @@ const UserSchema = new Schema ({
         type: String,
         required: "password is required"
     },
+    profile:{
+        type: Schema.Types.ObjectId,
+        ref: "Profile"
+    },
     posts: [
         {
             type: Schema.Types.ObjectId,

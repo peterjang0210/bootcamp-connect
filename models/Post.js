@@ -9,6 +9,15 @@ const PostSchema = new Schema ({
     body: {
         type: String
     },
+    timePosted: {
+        type: Date,
+        default: Date.now
+    },
+    location: {
+        type: String,
+        trim: true
+    },
+    tags: Array,
     category: {
         type: String,
         enum: ["general", "employment", "meetup"],
