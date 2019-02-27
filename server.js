@@ -15,7 +15,6 @@ mongoose.connect('mongodb://localhost/bootcampDB', { useNewUrlParser: true });
 require('./routes/html-routes')(app);
 require('./routes/api-routes')(app);
 
-
 app.listen(PORT, function() {
   console.log(`App running on port ${PORT}`);
 });
