@@ -40,4 +40,32 @@ module.exports = function (app) {
             res.json({error: error});
         });
     });
+
+    //finds all posts
+    app.get("/api/posts/", function(req, res) {
+        Post.find().then(function(results) {
+            res.json(results);
+        }).catch(function(error) {
+            res.jason({error: error});
+        });
+    });
+
+    //finds a post based on cohort
+    app.get("/api/posts/:cohortId", function(req, res) {
+        Post.find({ cohortId: req.params.cohortId }).then(function(results) {
+            res.json(results);
+        }).catch(function(error) {
+            res.jason({error: error});
+        });
+    });
+
+    //posts a single post specified in the FE Req Json
+    app.post("/api/posts/", function(req, res){
+        Post.create(req.body)
+        .then(function(newPost){
+            res.json(newPost);
+        }).catch(function(error){
+            res.json({error: error});
+        });
+    });
 }
