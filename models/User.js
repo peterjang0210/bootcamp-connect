@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
+var mongoosePaginate = require('mongoose-paginate');
 
 const validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -44,6 +45,7 @@ const UserSchema = new Schema ({
 });
 
 UserSchema.plugin(uniqueValidator);
+Userschema.plugin(mongoosePaginate);
 
 const User = mongoose.model("User", UserSchema);
 

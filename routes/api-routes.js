@@ -43,7 +43,7 @@ module.exports = function (app) {
 
     
     // **************************
-    // DIRECTORY
+    // DIRECTORY ACCESS
     // **************************
 
     // Get Contacts in User's Cohort
@@ -56,9 +56,11 @@ module.exports = function (app) {
             .catch((err) => {res.json({error: err})});
     });
 
-    // Get All Contacts (can we do paginated?)
-    app.get('/api/contacts/:accessToken', function(req, res) {
-        User.find({})
+    // Get All Contacts (paginated. 20 per page. specificy page number in url)
+    // https://github.com/edwardhotchkiss/mongoose-paginate
+    app.get('/api/contacts/:accessToken/:pageNum', function(req, res) {
+        const page = Number(pageNum);
+        User.paginate({}, {page: page, limit: 20})
             .then(function(allContacts) {
                 res.json({allContacts})
             })
