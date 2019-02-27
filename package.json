@@ -1,0 +1,24 @@
+{
+  "name": "bootcamp-directory",
+  "version": "1.0.0",
+  "description": "forum/message board for bootcamp graduates",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterjang0210/bootcamp-directory.git"
+  },
+  "author": "Peter Jang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterjang0210/bootcamp-directory/issues"
+  },
+  "homepage": "https://github.com/peterjang0210/bootcamp-directory#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.16"
+  }
+}
