@@ -40,4 +40,29 @@ module.exports = function (app) {
             res.json({error: error});
         });
     });
+
+    
+    // **************************
+    // DIRECTORY
+    // **************************
+
+    // Get Contacts in User's Cohort
+    app.get('/api/contacts/:cohortCode/:accessToken', function(req, res) {
+        const cohortCode = cohortCode;
+        User.find({cohortCode: cohortCode})
+            .then(function(cohortContacts) {
+                res.json({cohortContacts})
+            })
+            .catch((err) => {res.json({error: err})});
+    });
+
+    // Get All Contacts (can we do paginated?)
+    app.get('/api/contacts/:accessToken', function(req, res) {
+        User.find({})
+            .then(function(allContacts) {
+                res.json({allContacts})
+            })
+            .catch((err) => {res.json({error: err} )});
+    });
+
 }
