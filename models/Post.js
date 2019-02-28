@@ -17,6 +17,7 @@ const PostSchema = new Schema ({
         type: String,
         trim: true
     },
+    cohortCode: String,
     tags: Array,
     category: {
         type: String,
