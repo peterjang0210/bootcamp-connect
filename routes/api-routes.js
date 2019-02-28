@@ -36,7 +36,7 @@ module.exports = function (app) {
             username: req.body.username,
             password: newPassword,
             salt: salt,
-            cohortCode: req.body.cohortCode
+            cohortId: req.body.cohortId
         };
         User.create(user).then(function (newUser) {
             res.json(newUser);
@@ -51,20 +51,18 @@ module.exports = function (app) {
             const passwordCheck = hash.encrypt(req.body.password, user.salt);
             if (user.password === passwordCheck) {
                 const verifiedUser = {
-                    username: user.username,
                     _id: user._id,
+                    cohortId: user.cohortId
                 }
                 jwt.sign(verifiedUser, "funfunfun", { expiresIn: "30m" }, function (err, token) {
-                    res.json({ user, token });
+                    res.json({ verifiedUser, token });
                 });
             }
             else {
-                console.log("test2");
                 res.json("Wrong Password");
             }
         })
             .catch(function (error) {
-                console.log("test3");
                 res.json({ error: error });
             });
     });
@@ -93,7 +91,6 @@ module.exports = function (app) {
                 res.sendStatus(403);
             } else {
                 Profile.findOneAndUpdate({ _id: req.params.userId }, req.body, {new: true}).then(function (updateProfile) {
-                    console.log(updateProfile);
                     res.json(updateProfile);
                 }).catch(function (error) {
                     res.json({ error: error });
