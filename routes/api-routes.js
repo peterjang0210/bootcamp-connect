@@ -83,6 +83,21 @@ module.exports = function (app) {
         });
     });
 
+    app.put("/api/users/profile/:userId", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                res.json("success");
+                Profile.findOneAndUpdate({ userId: req.params.userId }, req.body).then(function (updateProfile) {
+                    res.json(updateProfile);
+                }).catch(function (error) {
+                    res.json({ error: error });
+                });
+            }
+        });
+    });
+
     //route to retrieve profiles
     app.get("/api/users/profile/", verifyToken, function (req, res) {
         const userID = req.params.accessToken;
@@ -92,30 +107,79 @@ module.exports = function (app) {
     });
 
     //finds all posts
-    app.get("/api/posts/", function(req, res) {
-        Post.find().then(function(results) {
-            res.json(results);
-        }).catch(function(error) {
-            res.jason({error: error});
+    app.get("/api/posts/", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                res.json("success");
+                Post.find().then(function (results) {
+                    res.json(results);
+                }).catch(function (error) {
+                    res.jason({ error: error });
+                });
+            }
         });
     });
 
     //finds a post based on cohort
-    app.get("/api/posts/:cohortId", function(req, res) {
-        Post.find({ cohortId: req.params.cohortId }).then(function(results) {
-            res.json(results);
-        }).catch(function(error) {
-            res.jason({error: error});
+    app.get("/api/posts/:cohortId", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Post.find({ cohortId: req.params.cohortId }).then(function (results) {
+                    res.json(results);
+                }).catch(function (error) {
+                    res.jason({ error: error });
+                });
+            }
         });
     });
 
     //posts a single post specified in the FE Req Json
-    app.post("/api/posts/", function(req, res){
-        Post.create(req.body)
-        .then(function(newPost){
-            res.json(newPost);
-        }).catch(function(error){
-            res.json({error: error});
+    app.post("/api/posts/", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Post.create(req.body)
+                    .then(function (newPost) {
+                        res.json(newPost);
+                    }).catch(function (error) {
+                        res.json({ error: error });
+                    });
+            }
         });
     });
-}
+
+    //finds all users based on cohortID
+    app.get("/api/contacts/:cohortId", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Profile.find({ cohortId: req.params.cohortId }).then(function (results) {
+                    res.json(results);
+                }).catch(function (error) {
+                    res.jason({ error: error });
+                });
+            }
+        });
+    });
+
+    //finds all users to display on directory
+    app.get("/api/contacts/", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Profile.find().then(function (results) {
+                    res.json(results);
+                }).catch(function (error) {
+                    res.jason({ error: error });
+                });
+            }
+        });
+    });
+};
