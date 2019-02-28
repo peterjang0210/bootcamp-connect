@@ -30,7 +30,7 @@ const ProfileSchema = new Schema({
     links: Array,
     employmentStatus: String,
     skills: Array,
-    cohort: String,
+    cohortId: String,
     location: {
         type: String,
         trim: true
