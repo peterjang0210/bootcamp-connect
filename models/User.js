@@ -27,7 +27,7 @@ const UserSchema = new Schema ({
         required: "password is required"
     },
     salt: String,
-    cohortCode: {
+    cohortId: {
         type: String,
         trim: true
     },

@@ -73,7 +73,6 @@ module.exports = function (app) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                res.json("success");
                 Profile.create(req.body).then(function (newProfile) {
                     res.json(newProfile);
                 }).catch(function (error) {
@@ -83,11 +82,33 @@ module.exports = function (app) {
         });
     });
 
-    //route to retrieve profiles
-    app.get("/api/users/profile/", verifyToken, function (req, res) {
-        const userID = req.params.accessToken;
-        User.findById(userID).then(function (profile) {
-            res.json(profile);
+    //route to retrieve all profiles
+    app.get("/api/users/profile", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Profile.find().then(function (profile) {
+                    res.json(profile);
+                }).catch(function(error){
+                    res.json({error:error});
+                });
+            }
+        });
+    });
+
+    //route to retrieve profiles by cohortID
+    app.get("/api/users/:cohortId", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Profiles.find({ cohortId: req.params.cohortId }).then(function (cohortProfiles) {
+                    res.json(cohortProfiles);
+                }).catch(function (error) {
+                    res.json({ error: error });
+                });
+            }
         });
     });
 }
