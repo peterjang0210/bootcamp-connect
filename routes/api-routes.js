@@ -26,6 +26,8 @@ const verifyToken = function (req, res, next) {
 
 module.exports = function (app) {
 
+    //-------------routes to register/login-------------
+
     //route to register
     app.post("/api/users/registration", function (req, res) {
         const salt = hash.generateSalt();
@@ -82,23 +84,41 @@ module.exports = function (app) {
         });
     });
 
-    //route to retrieve all profiles
-    app.get("/api/users/profile", verifyToken, function (req, res) {
+    //-------------routes for profiles-------------
+
+    //route to update profiles
+    app.put("/api/users/profile/:userId", verifyToken, function (req, res) {
         jwt.verify(req.token, "funfunfun", function (err, authData) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                Profile.find().then(function (profile) {
-                    res.json(profile);
-                }).catch(function(error){
-                    res.json({error:error});
+                res.json("success");
+                Profile.findOneAndUpdate({ userId: req.params.userId }, req.body).then(function (updateProfile) {
+                    res.json(updateProfile);
+                }).catch(function (error) {
+                    res.json({ error: error });
+                });
+            }
+        });
+    });
+
+    //route to retrieve all profiles
+    app.get("/api/users/profiles", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Profile.find().then(function (allProfiles) {
+                    res.json(allProfiles);
+                }).catch(function (error) {
+                    res.jason({ error: error });
                 });
             }
         });
     });
 
     //route to retrieve profiles by cohortID
-    app.get("/api/users/:cohortId", verifyToken, function (req, res) {
+    app.get("/api/users/profiles/:cohortId", verifyToken, function (req, res) {
         jwt.verify(req.token, "funfunfun", function (err, authData) {
             if (err) {
                 res.sendStatus(403);
@@ -111,4 +131,53 @@ module.exports = function (app) {
             }
         });
     });
-}
+
+    //-------------routes for posts-------------
+
+    //route to find retrieve posts
+    app.get("/api/posts/", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                res.json("success");
+                Post.find().then(function (results) {
+                    res.json(results);
+                }).catch(function (error) {
+                    res.jason({ error: error });
+                });
+            }
+        });
+    });
+
+    //route to retrieve all posts based on cohortId
+    app.get("/api/posts/:cohortId", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Post.find({ cohortId: req.params.cohortId }).then(function (results) {
+                    res.json(results);
+                }).catch(function (error) {
+                    res.jason({ error: error });
+                });
+            }
+        });
+    });
+
+    //route to post a post
+    app.post("/api/posts/", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                Post.create(req.body)
+                    .then(function (newPost) {
+                        res.json(newPost);
+                    }).catch(function (error) {
+                        res.json({ error: error });
+                    });
+            }
+        });
+    });
+};
