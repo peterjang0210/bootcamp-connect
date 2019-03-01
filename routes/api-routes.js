@@ -73,8 +73,24 @@ module.exports = function (app) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                Profile.create(req.body).then(function (newProfile) {
-                    res.json(newProfile);
+                userId = req.body.userId;
+                const profile = {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    email: req.body.email,
+                    phoneNumber: req.body.phoneNumber,
+                    image: req.body.image,
+                    description: req.body.description,
+                    links: req.body.links,
+                    employmentStatus: req.body.employmentStatus,
+                    skills: req.body.skills,
+                    cohortId: req.body.cohortId,
+                    location: req.body.location
+                }
+                Profile.create(profile).then(function (newProfile) {
+                    User.findOneAndUpdate({ _id: userId }, { $set: { profile: newProfile._id } }, { new: true }).then(function () {
+                        res.json(newProfile);
+                    });
                 }).catch(function (error) {
                     res.json({ error: error });
                 });
@@ -90,7 +106,7 @@ module.exports = function (app) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                Profile.findOneAndUpdate({ _id: req.params.userId }, req.body, {new: true}).then(function (updateProfile) {
+                Profile.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }).then(function (updateProfile) {
                     res.json(updateProfile);
                 }).catch(function (error) {
                     res.json({ error: error });
@@ -167,13 +183,39 @@ module.exports = function (app) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                Post.create(req.body)
-                    .then(function (newPost) {
+                userId = req.body.userId;
+                const post = {
+                    title: req.body.title,
+                    body: req.body.body,
+                    location: req.body.location,
+                    cohortId: req.body.cohortId,
+                    categeory: req.body.category,
+                    tags: req.body.tags
+                }
+                console.log(post);
+                Post.create(post).then(function (newPost) {
+                    console.log(newPost._id);
+                    User.findOneAndUpdate({ _id: userId }, { $push: { posts: newPost._id } }, { new: true }).then(function (updatedUser) {
+                        console.log(updatedUser);
                         res.json(newPost);
-                    }).catch(function (error) {
-                        res.json({ error: error });
-                    });
+                    })
+                }).catch(function (error) {
+                    res.json({ error: error });
+                });
             }
         });
     });
+
+    //testing route to see if user is being associated with posts + profile
+    // app.get("/api/users", verifyToken, function (req, res) {
+    //     jwt.verify(req.token, "funfunfun", function (err, authData) {
+    //         if (err) {
+    //             res.sendStatus(403);
+    //         } else {
+    //             User.find().populate("profile").populate("posts").then(function (data) {
+    //                 res.json(data);
+    //             })
+    //         }
+    //     });
+    // });
 };
