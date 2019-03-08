@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
-const validateEmail = function(email) {
+const validateEmail = function (email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
 };
 
-const UserSchema = new Schema ({
-    username:{
+const UserSchema = new Schema({
+    username: {
         type: String,
         required: "username is required",
         email: {
@@ -22,7 +22,7 @@ const UserSchema = new Schema ({
         },
         unique: true
     },
-    password:{
+    password: {
         type: String,
         required: "password is required"
     },
@@ -31,7 +31,7 @@ const UserSchema = new Schema ({
         type: String,
         trim: true
     },
-    profile:{
+    profile: {
         type: Schema.Types.ObjectId,
         ref: "Profile"
     },
