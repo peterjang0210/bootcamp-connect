@@ -19,11 +19,11 @@ const PostSchema = new Schema ({
     },
     cohortId: String,
     tags: Array,
-    // category: {
-    //     type: String,
-    //     enum: ["general", "employment", "meetup"],
-    //     required: "category is required"
-    // }
+    category: {
+        type: String,
+        enum: ["general", "employment", "meetup"],
+        required: "category is required"
+    }
 });
 
 const Post = mongoose.model("Post", PostSchema);
