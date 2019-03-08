@@ -67,8 +67,11 @@ module.exports = function (app) {
             });
     });
 
+
+    //-------------routes for profiles-------------
+
     //route to create profile
-    app.post("/api/profile", verifyToken, function (req, res) {
+    app.post("/api/profiles", verifyToken, function (req, res) {
         jwt.verify(req.token, "funfunfun", function (err, authData) {
             if (err) {
                 res.sendStatus(403);
@@ -98,7 +101,6 @@ module.exports = function (app) {
         });
     });
 
-    //-------------routes for profiles-------------
 
     //route to update profiles
     app.put("/api/profiles/:userId", verifyToken, function (req, res) {
