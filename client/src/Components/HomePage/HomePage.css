@@ -1,0 +1,28 @@
+.container { 
+    background-color: 'red';
+}
+
+.formTitle {
+
+}
+
+input {
+
+}
+
+.btn {
+
+}
+
+p {
+    color: red;
+}
+
+button {
+    color: white;
+    background-color: rgb(110, 14, 33);
+    width: 80px;
+    height: 40px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+}

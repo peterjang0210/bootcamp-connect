@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
+import HomePage from './Components/HomePage/HomePage';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
+
+          <h1>BootcampConnect</h1>
+          <button>login</button>
+          {/* <a
             className="App-link"
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
           >
             Learn React
-          </a>
+          </a> */}
         </header>
+        <HomePage />
       </div>
     );
   }
