@@ -7,7 +7,10 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 
 mongoose.connect('mongodb://localhost/bootcampDB', { useNewUrlParser: true });
@@ -15,6 +18,6 @@ mongoose.connect('mongodb://localhost/bootcampDB', { useNewUrlParser: true });
 require('./routes/html-routes')(app);
 require('./routes/api-routes')(app);
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log(`App running on port ${PORT}`);
 });
