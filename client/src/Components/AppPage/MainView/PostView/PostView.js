@@ -1,6 +1,6 @@
 import React from "react";
 
-class PostView {
+class PostView extends React.Component{
 }
 
 export default PostView;
