@@ -10,13 +10,15 @@ class PostView extends React.Component {
         title: "",
         body: "",
         location: "",
-        tags: [],
+        tags: "",
         category: "general",
-        posts:[]
+        posts:[{title: "title", body: "body", tags:["node.js", "javascript"]},
+    {title: "title1", body: "body1", location: "Atlanta, GA", category: "general", tags:["React"]}]
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
+        const tagArray = this.state.tags.split(",");
         $.ajax({
             url: "/api/posts/",
             method: "POST",
@@ -24,7 +26,7 @@ class PostView extends React.Component {
                 title: this.state.title,
                 body: this.state.body,
                 location: this.state.location,
-                tags: this.state.tags,
+                tags: tagArray,
                 category: this.state.category
             },
             headers: {'Authorization': 'Bearer ' + this.props.accessToken}
@@ -49,7 +51,7 @@ class PostView extends React.Component {
 
     filterClick = (event) => {
         event.preventDefault();
-        getFilteredPosts();
+        this.getFilteredPosts();
     }
 
     getFilteredPosts() {
@@ -66,15 +68,13 @@ class PostView extends React.Component {
         return (
             <div>
                 <CreatePost
-                    userID={this.props.userID}
-                    accessToken={this.props.accessToken}
                     title={this.state.title}
                     body={this.state.body}
                     location={this.state.location}
                     tags={this.state.tags}
                     category={this.state.category}
-                    submitPost={this.handleClick}
-                    handleChange={this.handleSubmit} />
+                    createPost={this.handleSubmit}
+                    handleChange={this.handleChange} />
                 <FilterNav filterClick={this.filterClick}/>
                 <PostList posts={this.state.posts}/>
             </div>
