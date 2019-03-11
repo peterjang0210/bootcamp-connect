@@ -1,6 +1,9 @@
 import React from "react";
 
-class AppPage {
+const AppPage = (props) => {
+    return (
+        <div>Hello World</div>
+    )
 }
 
 export default AppPage;

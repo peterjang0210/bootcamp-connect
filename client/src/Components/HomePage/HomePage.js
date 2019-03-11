@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { Alert } from 'reactstrap';
 import Registration from "./Registration";
 import Login from "./Login";
 import * as $ from 'axios';
@@ -9,7 +10,7 @@ class HomePage extends Component {
         password: "",
         password2: "",
         corhortId: "",
-        registeredUser: false
+        registeredUser: true
     }
 
 
@@ -51,10 +52,22 @@ class HomePage extends Component {
         $.post('/api/users/session', user)
             .then((response) => {
                 console.log("Login Response: ", response);
-                sessionStorage.setItem('token', response.data.data.token)
-                sessionStorage.setItem('userId', response.data.data.verifiedUser._id)
-                sessionStorage.setItem('cohortId', response.data.data.verifiedUser.cohortId)
-            });
+                console.log("token", response.data.token);
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('userId', response.data.verifiedUser._id);
+                localStorage.setItem('cohortId', response.data.verifiedUser.cohortId);
+                this.setLocation(response.status); 
+
+            })
+    }
+
+    setLocation = (props) => {
+        props === 200 ? (
+            document.location.href = "/app"
+        ) : (
+            document.location.href = "/"
+        )
+        
     }
 
     toggleLogin = (event) => {

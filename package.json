@@ -35,6 +35,7 @@
     "jsonwebtoken": "^8.5.0",
     "mongoose": "^5.4.16",
     "mongoose-unique-validator": "^2.0.2",
-    "pbkdf2": "^3.0.17"
+    "pbkdf2": "^3.0.17",
+    "react-router-dom": "^4.3.1"
   }
 }
