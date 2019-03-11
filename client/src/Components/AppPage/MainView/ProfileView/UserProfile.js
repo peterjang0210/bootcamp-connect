@@ -10,7 +10,12 @@ class UserProfile extends React.Component {
             <div className="card">
                 <div className="card-body">
                     <div className="form-group">
-                        <input className="card-title form-control" placeholder={this.state.user.firstName + this.state.user.lastName} />
+                        <label>First Name</label>
+                        <input className="card-title form-control" placeholder={this.state.user.firstName} />
+                    </div>
+                    <div className="form-group">
+                        <label>Last Name</label>
+                        <input className="card-title form-control" placeholder={this.state.user.lastName} />
                     </div>
                     <div className="form-group">
                         <label>Email</label>
@@ -26,7 +31,13 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Links</label>
-                        <input className="card-text form-control" placeholder={this.state.user.links} />
+                        {this.state.user.links.map((link, i) =>
+                            <div key={i}>
+                                <label>URL</label>
+                                <input className="card-text form-control" placeholder={link.URL}/>
+                                <label>Description</label>
+                                <input className="card-text form-control" placeholder={link.linkDescription}/>
+                            </div>)}
                     </div>
                     <div className="form-group">
                         <label>Employment Status</label>
@@ -34,7 +45,13 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <label>Skills</label>
-                        <input className="card-text form-control" placeholder={this.state.user.skills} />
+                        {this.state.user.skills.map((skill, i) =>
+                            <div key={i}>
+                                <label>Skill</label>
+                                <input className="card-text form-control" placeholder={skill.skillName}/>
+                                <label>Skill Level</label>
+                                <input className="card-text form-control" placeholder={skill.skillLevel}/>
+                            </div>)}
                     </div>
                     <div className="form-group">
                         <label>Location</label>
