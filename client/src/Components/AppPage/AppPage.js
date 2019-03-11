@@ -8,11 +8,44 @@ import * as $ from "axios";
 class AppPage extends React.Component {
     state = {
         profiles: [],
-        activeProfile: {},
-        viewPosts: true,
-        userId: "",
-        userProfile: {}, // keep the users profile handy for passing to nav bar info 
-        accessToken: ""
+        activeProfile: {
+            "_id": "5c7940c1a883ba055d8c0308",
+            "image": "none",
+            "links": [
+                {
+                    "URL": "https://github.com/peterjang0210/bootcamp-directory",
+                    "linkDescription": "GitHub"
+                },
+                {
+                    "URL": "www.google.com",
+                    "linkDescription": "Google"
+                }
+            ],
+            "skills": [
+                {
+                    "skillName": "HTML",
+                    "skillLevel": 4
+                },
+                {
+                    "skillName": "MongoDB",
+                    "skillLevel": 2
+                }
+            ],
+            "firstName": "TestUserFirstName1",
+            "lastName": "TestUserLastName1",
+            "email": "TestUser1@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "description": "This is a test profile. This is the description field",
+            "employmentStatus": "Seeking Employement",
+            "cohortId": "GTATL201901",
+            "location": "Atlanta, GA, USA"
+        },
+        userProfile: {},
+        viewPosts: false,
+        userId: sessionStorage.getItem("userId"),
+        cohortId: sessionStorage.getItem("cohortId"),
+        accessToken: sessionStorage.getItem("token"),
+        canEdit: true
     }
 
     componentDidMount() {
@@ -20,7 +53,7 @@ class AppPage extends React.Component {
         $({
             url: `/api/profiles/${this.state.userId}`,
             method: "GET",
-            headers: {'Authorization': 'Bearer ' + this.state.accessToken}
+            headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         }).then((userProfile) => {
                 this.setState({
                     userProfile: userProfile
@@ -29,14 +62,14 @@ class AppPage extends React.Component {
         $({
             url: '/api/profiles',
             method: "GET",
-            headers: {'Authorization': 'Bearer ' + this.state.accessToken}
+            headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         })
-        .then((allProfiles) => {
-            this.setState({
-                profiles: allProfiles,
-                viewPosts: true
+            .then((allProfiles) => {
+                this.setState({
+                    profiles: allProfiles,
+                    // viewPosts: true
+                })
             })
-        })
     }
     handleContactClick = (e) => {
         e.preventDefault();
@@ -78,8 +111,16 @@ class AppPage extends React.Component {
             </div>
             <div className='col-8' >
                 {this.state.viewPosts 
-                ? <PostView cohortId={this.state.userProfile.cohortId} />
-                : <ProfileView activeProfile={this.state.activeProfile} />}
+                ? <PostView 
+                    userId={this.state.userId}
+                    cohortId={this.state.cohortId}
+                    accessToken={this.state.accessToken} />
+                : <ProfileView 
+                    userId={this.state.userId}
+                    accessToken={this.state.accessToken}
+                    profile={this.state.activeProfile}
+                    editable={this.state.canEdit} />
+                }
             </div>
             </div>
             </div>

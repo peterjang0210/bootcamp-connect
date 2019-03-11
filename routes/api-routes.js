@@ -132,7 +132,7 @@ module.exports = function (app) {
         });
     });
 
-    //route to retrieve profiles by cohortID
+    //route to retrieve profiles by cohortId
     app.get("/api/profiles/:cohortId", verifyToken, function (req, res) {
         jwt.verify(req.token, "funfunfun", function (err, authData) {
             if (err) {
@@ -140,6 +140,21 @@ module.exports = function (app) {
             } else {
                 Profile.find({ cohortId: req.params.cohortId }).then(function (cohortProfiles) {
                     res.json(cohortProfiles);
+                }).catch(function (error) {
+                    res.json({ error: error });
+                });
+            }
+        });
+    });
+
+    //route to retrieve a profile by userId
+    app.get("/api/profiles/:userId", verifyToken, function (req, res) {
+        jwt.verify(req.token, "funfunfun", function (err, authData) {
+            if (err) {
+                res.sendStatus(403);
+            } else {
+                User.findById(req.params.userId).then(function (user) {
+                    res.json(user);
                 }).catch(function (error) {
                     res.json({ error: error });
                 });
@@ -191,7 +206,7 @@ module.exports = function (app) {
                     body: req.body.body,
                     location: req.body.location,
                     cohortId: req.body.cohortId,
-                    categeory: req.body.category,
+                    category: req.body.category,
                     tags: req.body.tags
                 }
                 console.log(post);

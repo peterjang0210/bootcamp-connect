@@ -1,29 +1,62 @@
 import React from "react";
-import Profile from "./Profile";
-import * as $ from "axios";
 
 class UserProfile extends React.Component {
     state = {
-        user: {}
-    }
-
-    getUser = () => {
-        $.get("/api/")
+        user: this.props.profile
     }
 
     render() {
         return (
             <div className="card">
                 <div className="card-body">
-                    <input className="card-title" placeholder={this.state.user.name} />
-                    <input className="card-text" placeholder={this.state.user.email} />
-                    <input className="card-text" placeholder={this.state.user.phoneNumber} />
-                    <h7 className="card-text"> Bio</h7>
-                    <input className="card-text" placeholder={this.state.user.description} />
-                    <input className="card-text" placeholder={this.state.user.links} />
-                    <input className="card-text" placeholder={this.state.user.employmentStatus} />
-                    <input className="card-text" placeholder={this.state.user.skills} />
-                    <input className="card-text" placeholder={this.state.user.location} />
+                    <div className="form-group">
+                        <label>First Name</label>
+                        <input className="card-title form-control" placeholder={this.state.user.firstName} />
+                    </div>
+                    <div className="form-group">
+                        <label>Last Name</label>
+                        <input className="card-title form-control" placeholder={this.state.user.lastName} />
+                    </div>
+                    <div className="form-group">
+                        <label>Email</label>
+                        <input type="email" className="card-text form-control" placeholder={this.state.user.email} />
+                    </div>
+                    <div className="form-group">
+                        <label>Phone Number</label>
+                        <input className="card-text form-control" placeholder={this.state.user.phoneNumber} />
+                    </div>
+                    <div className="form-group">
+                        <label>Bio</label>
+                        <input className="card-text form-control" placeholder={this.state.user.description} />
+                    </div>
+                    <div className="form-group">
+                        <label>Links</label>
+                        {this.state.user.links.map((link, i) =>
+                            <div key={i}>
+                                <label>URL</label>
+                                <input className="card-text form-control" placeholder={link.URL}/>
+                                <label>Description</label>
+                                <input className="card-text form-control" placeholder={link.linkDescription}/>
+                            </div>)}
+                    </div>
+                    <div className="form-group">
+                        <label>Employment Status</label>
+                        <input className="card-text form-control" placeholder={this.state.user.employmentStatus} />
+                    </div>
+                    <div className="form-group">
+                        <label>Skills</label>
+                        {this.state.user.skills.map((skill, i) =>
+                            <div key={i}>
+                                <label>Skill</label>
+                                <input className="card-text form-control" placeholder={skill.skillName}/>
+                                <label>Skill Level</label>
+                                <input className="card-text form-control" placeholder={skill.skillLevel}/>
+                            </div>)}
+                    </div>
+                    <div className="form-group">
+                        <label>Location</label>
+                        <input className="card-text form-control" placeholder={this.state.user.location} />
+                    </div>
                 </div>
                 <button>Save Changes</button>
             </div>)

@@ -4,7 +4,12 @@ import Profile from "./Profile";
 
 const ProfileView = (props) => (
     <div>
-        <Profile />
+        {props.editable 
+            ? <UserProfile 
+                userId={props.userId} 
+                accessToken={props.accessToken}
+                profile={props.profile}/> 
+            : <Profile profile={props.profile}/>}
     </div>
 )
 
