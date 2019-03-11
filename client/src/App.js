@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
 import HomePage from './Components/HomePage/HomePage';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import Login from './Components/HomePage/Login';
+import Contacts from './Components/AppPage/SideNav/Contacts';
+import Profile from './Components/AppPage/MainView/ProfileView/Profile';
 
 class App extends Component {
   render() {
     return (
+      <Router>
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
 
           <h1>BootcampConnect</h1>
-          <button>login</button>
-          {/* <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a> */}
-        </header>
-        <HomePage />
+          <a className="loginbutton" href="/login">Login</a>
+        </header> */}
+
+
+        <Route exact path="/" component={HomePage}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/contact" component={Contacts}/>
+        <Route exact path="/profile" component={Profile}/>
       </div>
+      </Router>
     );
   }
 }
