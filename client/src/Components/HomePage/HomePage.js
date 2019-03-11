@@ -4,13 +4,27 @@ import Registration from "./Registration";
 import Login from "./Login";
 import * as $ from 'axios';
 
+const Alert = (props) => {
+    return (
+        props.alert === "Invalid Password" ? (
+            <div className="alert alert-danger">Password is incorrect. Please try again.</div>
+        ) : props.alert === "Password Mismatch" ? (
+            <div className="alert alert-danger">Passwords do not match. Please correct and try again.</div>
+            ) : (
+                <div></div>
+            )
+
+    )
+};
+
 class HomePage extends Component {
     state = {
         username: "",
         password: "",
         password2: "",
         corhortId: "",
-        registeredUser: true
+        registeredUser: true,
+        alert: ""
     }
 
 
@@ -33,41 +47,56 @@ class HomePage extends Component {
             cohortId: this.state.cohortId
         };
         console.log(newUser);
-
-        $.post('/api/users/registration', newUser)
+        if (this.state.password === this.state.password2) {
+            $.post('/api/users/registration', newUser)
             .then((response) => {
                 console.log("Registration Response: ", response)
-                this.handleLogin();
+                this.loginWorkflow(newUser);
             })
+        } else {
+            this.setState({ alert: "Password Mismatch" });
+            this.render();
+        }
     };
 
+    loginWorkflow = (props) => {
+        $.post('/api/users/session', props)
+            .then((response) => {
+                console.log("Login Response: ", response);
+                console.log("token", response.data.token);
+
+
+                if (response.data === "Wrong Password") {
+                    this.setState({ alert: "Invalid Password" });
+                    // this.render();
+                } else {
+                    localStorage.setItem('token', response.data.token);
+                    localStorage.setItem('userId', response.data.verifiedUser._id);
+                    localStorage.setItem('cohortId', response.data.verifiedUser.cohortId);
+                    this.setLocation(response.status);
+                };
+
+            })
+    }
+
     handleLogin = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         let user = {
             username: this.state.username,
             password: this.state.password,
             cohortId: this.state.cohortId
         };
         console.log(user);
-        $.post('/api/users/session', user)
-            .then((response) => {
-                console.log("Login Response: ", response);
-                console.log("token", response.data.token);
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('userId', response.data.verifiedUser._id);
-                localStorage.setItem('cohortId', response.data.verifiedUser.cohortId);
-                this.setLocation(response.status); 
-
-            })
+        this.loginWorkflow(user);
     }
 
     setLocation = (props) => {
         props === 200 ? (
             document.location.href = "/app"
         ) : (
-            document.location.href = "/"
-        )
-        
+                document.location.href = "/"
+            )
+
     }
 
     toggleLogin = (event) => {
@@ -77,11 +106,14 @@ class HomePage extends Component {
                 this.setState({ registeredUser: false })
             );
         this.render();
-    }
+    };
+
+
 
     render() {
         return (
-            <div className="homepage">
+            <div className="loginRegister">
+                <Alert alert={this.state.alert} />
                 {this.state.registeredUser === false ? (
                     <Registration handleChange={this.handleChange} handleRegister={this.handleRegister} openLogin={this.toggleLogin} />
                 ) : (
