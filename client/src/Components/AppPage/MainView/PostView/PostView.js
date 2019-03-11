@@ -12,14 +12,13 @@ class PostView extends React.Component {
         location: "",
         tags: "",
         category: "general",
-        posts:[{title: "title", body: "body", tags:["node.js", "javascript"]},
-    {title: "title1", body: "body1", location: "Atlanta, GA", category: "general", tags:["React"]}]
+        posts:[]
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         const tagArray = this.state.tags.split(",");
-        $.ajax({
+        $({
             url: "/api/posts/",
             method: "POST",
             data: {
@@ -30,7 +29,8 @@ class PostView extends React.Component {
                 category: this.state.category
             },
             headers: {'Authorization': 'Bearer ' + this.props.accessToken}
-        }).then(function () {
+        }).then((newPost) => {
+            console.log(newPost);
             this.getAllPosts();
         });
     }
@@ -40,12 +40,12 @@ class PostView extends React.Component {
     }
 
     getAllPosts() {
-        $.ajax({
+        $({
             url:"/api/posts/",
             method: "GET",
             headers: {'Authorization': 'Bearer ' + this.props.accessToken}
-        }).then(function(posts){
-            this.setState({posts: posts});
+        }).then((posts) => {
+            this.setState({posts: posts.data});
         });
     }
 
@@ -55,13 +55,17 @@ class PostView extends React.Component {
     }
 
     getFilteredPosts() {
-        $.ajax({
+        $({
             url:`/api/posts/${this.props.cohortId}`,
             method: "GET",
             headers: {'Authorization': 'Bearer ' + this.props.accessToken}
-        }).then(function(posts){
-            this.setState({posts: posts});
+        }).then((posts) =>{
+            this.setState({posts: posts.data});
         });
+    }
+
+    componentDidMount = () => {
+        this.getAllPosts();
     }
 
     render() {

@@ -10,25 +10,27 @@ class AppPage extends React.Component {
         profiles: [],
         activeProfile: {},
         userProfile: {},
-        viewPosts: true,
+        viewPosts: false,
         userId: sessionStorage.getItem("userId"),
         cohortId: sessionStorage.getItem("cohortId"),
         accessToken: sessionStorage.getItem("token"),
-        canEdit: false
+        canEdit: true
     }
 
     componentDidMount() {
         // get the users profile data via the access token using ajax request
-        $.ajax({
+        console.log(this.state.userId);
+        $({
             url: `/api/profiles/${this.state.userId}`,
             method: "GET",
             headers: {'Authorization': 'Bearer ' + this.state.accessToken}
         }).then((userProfile) => {
+            console.log(userProfile);
                 this.setState({
                     userProfile: userProfile
                 })
             })
-        $.ajax({
+        $({
             url: '/api/profiles',
             method: "GET",
             headers: {'Authorization': 'Bearer ' + this.state.accessToken}
@@ -36,7 +38,7 @@ class AppPage extends React.Component {
         .then((allProfiles) => {
             this.setState({
                 profiles: allProfiles,
-                viewPosts: true
+                // viewPosts: true
             })
         })
     }

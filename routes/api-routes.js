@@ -154,7 +154,7 @@ module.exports = function (app) {
                 res.sendStatus(403);
             } else {
                 User.findById(req.params.userId).then(function (user) {
-                    res.json(user.profile);
+                    res.json(user);
                 }).catch(function (error) {
                     res.json({ error: error });
                 });
@@ -206,7 +206,7 @@ module.exports = function (app) {
                     body: req.body.body,
                     location: req.body.location,
                     cohortId: req.body.cohortId,
-                    categeory: req.body.category,
+                    category: req.body.category,
                     tags: req.body.tags
                 }
                 console.log(post);

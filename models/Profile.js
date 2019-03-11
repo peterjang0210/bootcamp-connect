@@ -43,7 +43,6 @@ const ProfileSchema = new Schema({
     links: Array,
     employmentStatus: String,
     isLooking: Boolean, // yes/no is currently looking for work
-    userId: Schema.Types.ObjectId, // uerId
     skills: Array,
     cohortId: String,
     location: {
