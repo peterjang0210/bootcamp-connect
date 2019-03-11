@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Alert } from 'reactstrap';
 import Registration from "./Registration";
 import Login from "./Login";
 import * as $ from 'axios';
@@ -105,6 +104,9 @@ class HomePage extends Component {
         ) : (
                 this.setState({ registeredUser: false })
             );
+        this.setState({ alert: "" });
+        localStorage.clear();
+        sessionStorage.clear();
         this.render();
     };
 
