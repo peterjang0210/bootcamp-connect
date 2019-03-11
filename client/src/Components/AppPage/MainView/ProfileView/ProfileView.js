@@ -4,7 +4,9 @@ import Profile from "./Profile";
 
 const ProfileView = (props) => (
     <div>
-        <Profile />
+        {props.profile._id === props.userProfileId 
+            ? <UserProfile /> 
+            : <Profile />}
     </div>
 )
 

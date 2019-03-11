@@ -6,19 +6,33 @@ import ProfileView from "./MainView/ProfileView/ProfileView";
 class AppPage extends React.Component {
     state = {
         profiles: [],
+        activeProfile: {},
+        userProfile: {},
         viewPosts: true,
-        userID: "",
-        cohortId: "",
-        accessToken: ""
+        userId: sessionStorage.getItem("userId"),
+        cohortId: sessionStorage.getItem("cohortId"),
+        accessToken: sessionStorage.getItem("token")
+    }
+
+    handleClick = (event) => {
+        event.preventDefault();
+        this.setState({viewPosts: false});
     }
 
     render() {
         return (
             <div>
-                <SideNav />
+                <SideNav handleClick={this.handleClick} profiles={this.state.profiles}/>
                 {this.state.viewPosts 
-                ? <PostView userID={this.state.userID} cohortId={this.state.cohortId} accessToken={this.state.accessToken}/>
-                : <ProfileView userID={this.state.userID} cohortId={this.state.cohortId} accessToken={this.state.accessToken}/>}
+                ? <PostView 
+                    userId={this.state.userId} 
+                    cohortId={this.state.cohortId} 
+                    accessToken={this.state.accessToken}/>
+                : <ProfileView 
+                    userId={this.state.userId}  
+                    accessToken={this.state.accessToken} 
+                    profile={this.state.activeProfile}
+                    userProfileId={this.state.userProfile._id}/>}
             </div>
         )
     }
