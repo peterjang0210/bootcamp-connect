@@ -23,10 +23,8 @@ class App extends Component {
               <Link to={`/app`}>App</Link>
             </nav>
           </header>
-          <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/app' component={AppPage} />
-          </Switch>
         </div>
       </BrowserRouter>
     );

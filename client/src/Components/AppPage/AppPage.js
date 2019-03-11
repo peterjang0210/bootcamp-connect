@@ -10,10 +10,10 @@ class AppPage extends React.Component {
         profiles: [],
         activeProfile: {},
         userProfile: {},
-        viewPosts: false ,
-        userId: sessionStorage.getItem("userId"),
-        cohortId: sessionStorage.getItem("cohortId"),
-        accessToken: sessionStorage.getItem("token"),
+        viewPosts: true ,
+        userId: localStorage.getItem("userId"),
+        cohortId: localStorage.getItem("cohortId"),
+        accessToken: localStorage.getItem("token"),
         canEdit: true
     }
 
