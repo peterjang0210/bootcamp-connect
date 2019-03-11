@@ -2,7 +2,7 @@ import React from "react";
 import SideNav from "./SideNav/SideNav";
 import PostView from "./MainView/PostView/PostView";
 import ProfileView from "./MainView/ProfileView/ProfileView";
-import axios from 'axios';
+import * as $ from "axios";
 
 
 class AppPage extends React.Component {
@@ -10,17 +10,32 @@ class AppPage extends React.Component {
         profiles: [],
         activeProfile: {},
         viewPosts: true,
+        userId: "",
         userProfile: {}, // keep the users profile handy for passing to nav bar info 
         accessToken: ""
     }
 
     componentDidMount() {
         // get the users profile data via the access token using ajax request
-        // initialize state 
-
-        setState({
-            profiles: response,
-            viewPosts: true
+        $.ajax({
+            url: `/api/profiles/${this.state.userId}`,
+            method: "GET",
+            headers: {'Authorization': 'Bearer ' + this.state.accessToken}
+        }).then((userProfile) => {
+                this.setState({
+                    userProfile: userProfile
+                })
+            })
+        $.ajax({
+            url: '/api/profiles',
+            method: "GET",
+            headers: {'Authorization': 'Bearer ' + this.state.accessToken}
+        })
+        .then((allProfiles) => {
+            this.setState({
+                profiles: allProfiles,
+                viewPosts: true
+            })
         })
     }
     handleContactClick = (e) => {
