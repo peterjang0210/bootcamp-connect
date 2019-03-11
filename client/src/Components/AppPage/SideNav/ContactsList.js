@@ -2,7 +2,7 @@ import React from 'react';
 import Contact from './Contact';
 
 const ContactsList = (props) => (
-    <div>
+    <ul className="list-unstyled">
     {props.contactsList.map(contact => 
     <Contact 
         key={contact._id} 
@@ -12,7 +12,7 @@ const ContactsList = (props) => (
         lastName={contact.lastName}
         image={contact.image}
     />)}
-    </div>
+    </ul>
 )
 
 export default ContactsList;

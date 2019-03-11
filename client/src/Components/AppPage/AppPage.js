@@ -71,6 +71,7 @@ class AppPage extends React.Component {
 
     render() {
         return (
+            <div className="container">
             <div className='row'>
             <div className="col-4">
                 <SideNav profiles={this.state.profiles} userProfile={this.state.userProfile}  handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
@@ -79,6 +80,7 @@ class AppPage extends React.Component {
                 {this.state.viewPosts 
                 ? <PostView cohortId={this.state.userProfile.cohortId} />
                 : <ProfileView activeProfile={this.state.activeProfile} />}
+            </div>
             </div>
             </div>
         )
