@@ -108,7 +108,7 @@ module.exports = function (app) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                Profile.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }).then(function (updateProfile) {
+                User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }).then(function (updateProfile) {
                     res.json(updateProfile);
                 }).catch(function (error) {
                     res.json({ error: error });

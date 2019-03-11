@@ -10,7 +10,7 @@ class AppPage extends React.Component {
         profiles: [],
         activeProfile: {},
         userProfile: {},
-        viewPosts: true ,
+        viewPosts: false,
         userId: localStorage.getItem("userId"),
         cohortId: localStorage.getItem("cohortId"),
         accessToken: localStorage.getItem("token"),
