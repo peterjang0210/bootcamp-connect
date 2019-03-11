@@ -54,7 +54,7 @@ module.exports = function (app) {
                     _id: user._id,
                     cohortId: user.cohortId
                 }
-                jwt.sign(verifiedUser, "funfunfun", { expiresIn: "30m" }, function (err, token) {
+                jwt.sign(verifiedUser, "funfunfun", { expiresIn: "3h" }, function (err, token) {
                     res.json({ verifiedUser, token });
                 });
             }
@@ -148,13 +148,13 @@ module.exports = function (app) {
     });
 
     //route to retrieve a profile by userId
-    app.get("/api/profiles/:userId", verifyToken, function (req, res) {
+    app.get("/api/users/:userId", verifyToken, function (req, res) {
         jwt.verify(req.token, "funfunfun", function (err, authData) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                User.findById(req.params.userId).then(function (user) {
-                    res.json(user);
+                User.findById(req.params.userId).populate("profile").then(function (user) {
+                    res.json(user.profile);
                 }).catch(function (error) {
                     res.json({ error: error });
                 });
@@ -223,7 +223,7 @@ module.exports = function (app) {
         });
     });
 
-    //testing route to see if user is being associated with posts + profile
+    // testing route to see if user is being associated with posts + profile
     // app.get("/api/users", verifyToken, function (req, res) {
     //     jwt.verify(req.token, "funfunfun", function (err, authData) {
     //         if (err) {

@@ -8,40 +8,9 @@ import * as $ from "axios";
 class AppPage extends React.Component {
     state = {
         profiles: [],
-        activeProfile: {
-            "_id": "5c7940c1a883ba055d8c0308",
-            "image": "none",
-            "links": [
-                {
-                    "URL": "https://github.com/peterjang0210/bootcamp-directory",
-                    "linkDescription": "GitHub"
-                },
-                {
-                    "URL": "www.google.com",
-                    "linkDescription": "Google"
-                }
-            ],
-            "skills": [
-                {
-                    "skillName": "HTML",
-                    "skillLevel": 4
-                },
-                {
-                    "skillName": "MongoDB",
-                    "skillLevel": 2
-                }
-            ],
-            "firstName": "TestUserFirstName1",
-            "lastName": "TestUserLastName1",
-            "email": "TestUser1@gmail.com",
-            "phoneNumber": "123-456-7890",
-            "description": "This is a test profile. This is the description field",
-            "employmentStatus": "Seeking Employement",
-            "cohortId": "GTATL201901",
-            "location": "Atlanta, GA, USA"
-        },
+        activeProfile: {},
         userProfile: {},
-        viewPosts: false,
+        viewPosts: false ,
         userId: sessionStorage.getItem("userId"),
         cohortId: sessionStorage.getItem("cohortId"),
         accessToken: sessionStorage.getItem("token"),
@@ -51,13 +20,14 @@ class AppPage extends React.Component {
     componentDidMount() {
         // get the users profile data via the access token using ajax request
         $({
-            url: `/api/profiles/${this.state.userId}`,
+            url: `/api/users/${this.state.userId}`,
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         }).then((userProfile) => {
-            // this.setState({
-            //     userProfile: userProfile
-            // })
+            this.setState({
+                userProfile: userProfile.data,
+                activeProfile: userProfile.data
+            });
         })
         $({
             url: '/api/profiles',
