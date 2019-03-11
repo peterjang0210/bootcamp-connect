@@ -30,7 +30,6 @@ class PostView extends React.Component {
             },
             headers: {'Authorization': 'Bearer ' + this.props.accessToken}
         }).then((newPost) => {
-            console.log(newPost);
             this.getAllPosts();
         });
     }

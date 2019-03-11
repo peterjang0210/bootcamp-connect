@@ -7,7 +7,7 @@ const Post = (props) => (
             <p className="card-text">{props.post.body}</p>
             <p className="card-text">Location: {props.post.location}</p>
             <p className="card-text"> Tags:
-            {props.post.tags.map(tag => <span className="text-muted"> {tag} </span>)}
+            {props.post.tags.map((tag, i) => <span key={i} className="text-muted"> {tag} </span>)}
             </p>
             <p className="card-text">Category: {props.post.category}</p>
             <p className="card-text">Timestamp: {props.post.timePosted}</p>

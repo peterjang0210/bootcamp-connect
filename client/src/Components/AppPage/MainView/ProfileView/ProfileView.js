@@ -8,8 +8,8 @@ const ProfileView = (props) => (
             ? <UserProfile 
                 userId={props.userId} 
                 accessToken={props.accessToken}
-                profile={props.activeProfile}/> 
-            : <Profile profile={props.activeProfile}/>}
+                profile={props.profile}/> 
+            : <Profile profile={props.profile}/>}
     </div>
 )
 

@@ -8,7 +8,7 @@ class UserProfile extends React.Component {
     render() {
         return (
             <div className="card">
-                {/* <div className="card-body">
+                <div className="card-body">
                     <div className="form-group">
                         <input className="card-title form-control" placeholder={this.state.user.firstName + this.state.user.lastName} />
                     </div>
@@ -41,7 +41,7 @@ class UserProfile extends React.Component {
                         <input className="card-text form-control" placeholder={this.state.user.location} />
                     </div>
                 </div>
-                <button>Save Changes</button> */}
+                <button>Save Changes</button>
             </div>)
     }
 }
