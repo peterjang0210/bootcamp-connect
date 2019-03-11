@@ -17,7 +17,7 @@ class AppPage extends React.Component {
 
     componentDidMount() {
         // get the users profile data via the access token using ajax request
-        $.ajax({
+        $({
             url: `/api/profiles/${this.state.userId}`,
             method: "GET",
             headers: {'Authorization': 'Bearer ' + this.state.accessToken}
@@ -26,7 +26,7 @@ class AppPage extends React.Component {
                     userProfile: userProfile
                 })
             })
-        $.ajax({
+        $({
             url: '/api/profiles',
             method: "GET",
             headers: {'Authorization': 'Bearer ' + this.state.accessToken}
@@ -41,7 +41,9 @@ class AppPage extends React.Component {
     handleContactClick = (e) => {
         e.preventDefault();
         const activeContactId = e.target.id;
-        const activeProfile = this.profiles.find() // find profile by id
+        const activeProfile = this.profiles.find((profile) => {
+            return profile._id === activeContactId
+        }) 
         this.setState({
             viewPosts: false,
             activeProfile: activeProfile
@@ -52,7 +54,8 @@ class AppPage extends React.Component {
         e.preventDefault();
         this.setState({
             viewPosts: false,
-            activeContactId: this.state.userId
+            activeProfile: this.state.userProfile,
+            canEdit: true
         })
         // toggle css class of selected contact to indicate active status
     }
@@ -60,17 +63,23 @@ class AppPage extends React.Component {
         e.preventDefault();
         this.setState({
             viewPosts: true,
-            activeProfile: {}
+            activeProfile: {},
+            canEdit: false
+        
         })
     }
 
     render() {
         return (
-            <div>
-                <SideNav userProfile={this.state.userProfile}  handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
+            <div className='row'>
+            <div className="col-4">
+                <SideNav profiles={this.state.profiles} userProfile={this.state.userProfile}  handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
+            </div>
+            <div className='col-8' >
                 {this.state.viewPosts 
                 ? <PostView cohortId={this.state.userProfile.cohortId} />
                 : <ProfileView activeProfile={this.state.activeProfile} />}
+            </div>
             </div>
         )
     }
