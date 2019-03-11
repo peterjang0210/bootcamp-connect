@@ -103,12 +103,12 @@ module.exports = function (app) {
 
 
     //route to update profiles
-    app.put("/api/profiles/:userId", verifyToken, function (req, res) {
+    app.put("/api/profiles/:profileId", verifyToken, function (req, res) {
         jwt.verify(req.token, "funfunfun", function (err, authData) {
             if (err) {
                 res.sendStatus(403);
             } else {
-                User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }).then(function (updateProfile) {
+                Profile.findOneAndUpdate({ _id: req.params.profileId }, req.body, { new: true }).then(function (updateProfile) {
                     res.json(updateProfile);
                 }).catch(function (error) {
                     res.json({ error: error });

@@ -24,8 +24,9 @@ class UserProfile extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        const profileId = localStorage.getItem("profileId");
         $({
-            url: `/api/profiles/${this.props.userId}`,
+            url: `/api/profiles/${profileId}`,
             method: "PUT",
             data: {
                 firstName: this.state.firstName,
@@ -37,8 +38,8 @@ class UserProfile extends React.Component {
                 location: this.state.location
             },
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
-        }).then(() => {
-
+        }).then((response) => {
+            console.log(response);
         })
     }
 
@@ -95,7 +96,7 @@ class UserProfile extends React.Component {
                         <input className="card-text form-control" value={this.state.location} onChange={this.handleChange} name="location"/>
                     </div>
                 </div>
-                <button onChange={this.handleSubmit}>Save Changes</button>
+                <button onClick={this.handleSubmit}>Save Changes</button>
             </div>)
     }
 }
