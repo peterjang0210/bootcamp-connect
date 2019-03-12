@@ -94,6 +94,10 @@ header {
         cursor: pointer;
 }
 
+.list-group-item {
+    cursor: pointer;
+}
+
 .largeLogo {
     padding-top: 50px;
     padding-bottom: 20px;
