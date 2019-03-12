@@ -23,6 +23,7 @@ const Profile = (props) => (
                 <p className="card-text">{skill.skillName}: {skill.skillLevel}</p>
             </div>)}
             <p className="card-text">Location: {props.profile.location}</p>
+            {props.profile.isLooking ? <p className="card-text">Looking for Employment</p>: <p className="card-text">Not Looking for Employment</p>}
         </div>
     </div>
 )

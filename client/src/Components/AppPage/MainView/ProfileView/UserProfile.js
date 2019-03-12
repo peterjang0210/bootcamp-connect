@@ -12,6 +12,7 @@ class UserProfile extends React.Component {
         links: [],
         skills: [],
         location: "",
+        isLooking: false,
         URL: "",
         linkDescription: "",
         skillName: "",
@@ -33,7 +34,8 @@ class UserProfile extends React.Component {
                 description: profile.data.description,
                 links: profile.data.links,
                 skills: profile.data.skills,
-                location: profile.data.location
+                location: profile.data.location,
+                isLooking: profile.data.isLooking
             });
         })
     }
@@ -57,13 +59,22 @@ class UserProfile extends React.Component {
                 skills: this.state.skills,
                 description: this.state.description,
                 employmentStatus: this.state.employmentStatus,
-                location: this.state.location
+                location: this.state.location,
+                isLooking: this.state.isLooking
             },
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
         }).then((response) => {
             console.log(response);
             this.props.save();
         })
+    }
+
+    handleCheckOne = (event) => {
+        this.setState({ isLooking: true });
+    }
+
+    handleCheckTwo = (event) => {
+        this.setState({ isLooking: false });
     }
 
     handleAddLinks = (event) => {
@@ -75,11 +86,11 @@ class UserProfile extends React.Component {
     handleDeleteLinks = (event) => {
         event.preventDefault();
         const newLinkList = this.state.links.filter((link, i) => {
-            if(event.target.id  != i){
+            if (event.target.id != i) {
                 return link;
             }
         })
-        this.setState({links: newLinkList});
+        this.setState({ links: newLinkList });
     }
 
     handleAddSkills = (event) => {
@@ -91,19 +102,19 @@ class UserProfile extends React.Component {
     handleDeleteSkills = (event) => {
         event.preventDefault();
         const newSkillList = this.state.skills.filter((skill, i) => {
-            if(event.target.id != i){
+            if (event.target.id != i) {
                 return skill;
             }
         })
-        this.setState({skills: newSkillList});
+        this.setState({ skills: newSkillList });
     }
 
     render() {
         return (
             <div className="card">
-            <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+                <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <div className="card-body">
                     <div className="form-group">
                         <label>First Name</label>
@@ -128,7 +139,7 @@ class UserProfile extends React.Component {
                     <div className="form-group">
                         <h5>Links</h5>
                         {this.state.links.map((link, i) => <span key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button onClick={this.handleDeleteLinks} id={i}>Delete</button></span>)}
-                        <hr/>
+                        <hr />
                         <label>URL</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
                         <label>Link Description</label>
@@ -142,7 +153,7 @@ class UserProfile extends React.Component {
                     <div className="form-group">
                         <h5>Skills</h5>
                         {this.state.skills.map((skill, i) => <div className="card" key={i}><p>{skill.skillName}</p><p>{skill.skillLevel}</p><button onClick={this.handleDeleteSkills} id={i}>Delete</button></div>)}
-                        <hr/>
+                        <hr />
                         <label>Skill Name</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" />
                         <label>Skill Level</label>
@@ -153,8 +164,16 @@ class UserProfile extends React.Component {
                         <label>Location</label>
                         <input className="card-text form-control" value={this.state.location} onChange={this.handleChange} name="location" />
                     </div>
+                    <div className="form-check">
+                        <input onClick={this.handleCheckOne} className="form-check-input" type="radio"/>
+                        <label className="form-check-label">Looking for a job</label>
+                    </div>
+                    <div className="form-check">
+                        <input onClick={this.handleCheckTwo} className="form-check-input" type="radio"/>
+                        <label className="form-check-label">Not looking for a job</label>
+                    </div>
+                    <button onClick={this.handleSubmit}>Save Changes</button>
                 </div>
-                <button onClick={this.handleSubmit}>Save Changes</button>
             </div>)
     }
 }
