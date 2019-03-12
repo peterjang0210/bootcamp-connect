@@ -16,7 +16,8 @@ class UserProfile extends React.Component {
         URL: "",
         linkDescription: "",
         skillName: "",
-        skillLevel: ""
+        skillLevel: "",
+        image: ""
     }
 
     componentDidMount() {
@@ -35,7 +36,8 @@ class UserProfile extends React.Component {
                 links: profile.data.links,
                 skills: profile.data.skills,
                 location: profile.data.location,
-                isLooking: profile.data.isLooking
+                isLooking: profile.data.isLooking,
+                image: profile.data.image
             });
         })
     }
@@ -61,7 +63,8 @@ class UserProfile extends React.Component {
                 employmentStatus: this.state.employmentStatus,
                 location: this.state.location,
                 isLooking: this.state.isLooking,
-                cohortId: localStorage.getItem("cohortId")
+                cohortId: localStorage.getItem("cohortId"),
+                image: this.state.image
             },
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
         }).then((response) => {
@@ -130,6 +133,10 @@ class UserProfile extends React.Component {
                         <input className="card-title form-control" value={this.state.lastName} onChange={this.handleChange} name="lastName" />
                     </div>
                     <div className="form-group">
+                        <label>Image Link</label>
+                        <input className="card-title form-control" value={this.state.image} onChange={this.handleChange} name="image" placeholder="please enter a link to an image"/>
+                    </div>
+                    <div className="form-group">
                         <label>Email</label>
                         <input type="email" className="card-text form-control" value={this.state.email} onChange={this.handleChange} name="email" />
                     </div>
@@ -176,7 +183,7 @@ class UserProfile extends React.Component {
                         </select>
                         <input type="text" className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
                         <label>Skill Level</label>
-                        <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
+                        <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control skillInput" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
                         <button onClick={this.handleAddSkills}>Add</button>
                     </div>
                     <div className="form-group">

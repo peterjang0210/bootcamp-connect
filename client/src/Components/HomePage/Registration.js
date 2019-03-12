@@ -10,11 +10,11 @@ const Registration = (props) => (
 
             <div className="form-input">
                 <label className="inputLabel">Password: </label>
-                <input className="inputField" name="password" placeholder="Enter Password" onChange={props.handleChange} />
+                <input className="inputField" name="password" type="password" placeholder="Enter Password" onChange={props.handleChange} />
             </div>
             <div className="form-input">
                 <label className="inputLabel">Confirm Password: </label>
-                <input className="inputField" name="password2" placeholder="Confirm Password" onChange={props.handleChange} />
+                <input className="inputField" name="password2" type="password" placeholder="Confirm Password" onChange={props.handleChange} />
             </div>
             <div className="form-input">
                 <label className="inputLabel">Cohort ID: </label>

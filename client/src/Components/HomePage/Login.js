@@ -9,7 +9,7 @@ const Login = (props) => (
             </div>
             <div className="form-input">
                 <label className="inputLabel">Password: </label>
-                <input className="inputField" name="password" placeholder="Enter Password" onChange={props.handleChange}></input>
+                <input className="inputField" name="password" type="password" placeholder="Enter Password" onChange={props.handleChange}></input>
             </div>
         </div>
         <br/><br/><br/><br/>
