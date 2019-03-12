@@ -18,6 +18,11 @@ class AppPage extends React.Component {
     }
 
     componentDidMount() {
+        this.getProfiles();
+        console.log('\n app page straight up mounted yo \n \n')
+    }
+
+    getProfiles = () => {
         $({
             url: `/api/users/${this.state.userId}`,
             method: "GET",
@@ -28,11 +33,6 @@ class AppPage extends React.Component {
                 userProfile: userProfile.data,
             });
         })
-        this.getProfiles();
-        console.log('\n app page straight up mounted yo \n \n')
-    }
-
-    getProfiles = () => {
         $({
             url: '/api/profiles',
             method: "GET",

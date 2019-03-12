@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Registration from "./Registration";
 import Login from "./Login";
 import * as $ from 'axios';
+import "./Styles.css"
 
 const Alert = (props) => {
     return (
