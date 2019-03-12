@@ -58,7 +58,8 @@ class AppPage extends React.Component {
         console.log('active profile is ', activeProfile)
         this.setState({
             viewPosts: false,
-            activeProfile: activeProfile
+            activeProfile: activeProfile,
+            canEdit: false
         })
         // toggle css class of selected contact to indicate active status
     }
