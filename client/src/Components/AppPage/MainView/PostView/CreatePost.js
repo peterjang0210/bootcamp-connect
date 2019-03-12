@@ -3,7 +3,7 @@ import React from 'react';
 const CreatePost = (props) => (
     <div className="card">
         <div className="card-body">
-            <a className="card-title btn btn-primary" data-toggle="collapse" href="#collapsePost">Add Post</a>
+            <a className="card-title btn collapseBtn" data-toggle="collapse" href="#collapsePost">Add Post</a>
             <div className="collapse" id="collapsePost">
                 <form>
                     <div className="form-group">

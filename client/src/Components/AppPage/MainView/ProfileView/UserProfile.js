@@ -16,7 +16,8 @@ class UserProfile extends React.Component {
         URL: "",
         linkDescription: "",
         skillName: "",
-        skillLevel: ""
+        skillLevel: "",
+        image: ""
     }
 
     componentDidMount() {
@@ -35,7 +36,8 @@ class UserProfile extends React.Component {
                 links: profile.data.links,
                 skills: profile.data.skills,
                 location: profile.data.location,
-                isLooking: profile.data.isLooking
+                isLooking: profile.data.isLooking,
+                image: profile.data.image
             });
         })
     }
@@ -61,7 +63,8 @@ class UserProfile extends React.Component {
                 employmentStatus: this.state.employmentStatus,
                 location: this.state.location,
                 isLooking: this.state.isLooking,
-                cohortId: localStorage.getItem("cohortId")
+                cohortId: localStorage.getItem("cohortId"),
+                image: this.state.image
             },
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
         }).then((response) => {
@@ -116,7 +119,7 @@ class UserProfile extends React.Component {
 
     render() {
         return (
-            <div className="card">
+            <div className="card bounce-in-top">
                 <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,6 +131,10 @@ class UserProfile extends React.Component {
                     <div className="form-group">
                         <label>Last Name</label>
                         <input className="card-title form-control" value={this.state.lastName} onChange={this.handleChange} name="lastName" />
+                    </div>
+                    <div className="form-group">
+                        <label>Image Link</label>
+                        <input className="card-title form-control" value={this.state.image} onChange={this.handleChange} name="image" placeholder="please enter a link to an image"/>
                     </div>
                     <div className="form-group">
                         <label>Email</label>
@@ -143,7 +150,7 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Links</h5>
-                        {this.state.links.map((link, i) => <span className="badge badge-pill badge-primary" key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button className="btn btn-danger" onClick={this.handleDeleteLinks} id={i}><i className="fas fa-times"></i></button></span>)}
+                        {this.state.links.map((link, i) => <span className="badge badge-pill badge-primary" key={i}><a className="btn" href={link.URL}>{link.linkDescription}</a><button className="btn" onClick={this.handleDeleteLinks} id={i}><i className="fas fa-times"></i></button></span>)}
                         <hr />
                         <label>URL</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
@@ -157,7 +164,7 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Skills</h5>
-                        {this.state.skills.map((skill, i) => <span className="badge badge-pill badge-primary" key={i}>{skill.skillName}: {skill.skillLevel}     <button className="btn btn-danger" onClick={this.handleDeleteSkills} id={i}><i className="fas fa-times"></i></button></span>)}
+                        {this.state.skills.map((skill, i) => <span className="badge badge-pill badge-primary" key={i}>{skill.skillName}: {skill.skillLevel}     <button className="btn" onClick={this.handleDeleteSkills} id={i}><i className="fas fa-times"></i></button></span>)}
                         <hr />
                         <label>Skill Name</label>
                         <select className="custom-select" defaultValue="0" onChange={this.handleSkillsValue}>
@@ -176,7 +183,7 @@ class UserProfile extends React.Component {
                         </select>
                         <input type="text" className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
                         <label>Skill Level</label>
-                        <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
+                        <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control skillInput" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
                         <button onClick={this.handleAddSkills}>Add</button>
                     </div>
                     <div className="form-group">
@@ -191,8 +198,8 @@ class UserProfile extends React.Component {
                         <input onClick={this.handleCheckTwo} className="form-check-input" type="radio" />
                         <label className="form-check-label">Not looking for a job</label>
                     </div>
-                    <button onClick={this.handleSubmit}>Save Changes</button>
                 </div>
+                <button className="filterListButton" onClick={this.handleSubmit}>Save Changes</button>
             </div>)
     }
 }

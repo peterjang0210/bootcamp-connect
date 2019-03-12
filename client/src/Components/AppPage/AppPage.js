@@ -46,6 +46,8 @@ class AppPage extends React.Component {
                 console.log('all profiles', allProfiles)
                 this.setState({
                     profiles: allProfiles,
+                    activeProfile: this.state.userProfile,
+                    canEdit: false
                 })
             })
     }
@@ -86,10 +88,6 @@ class AppPage extends React.Component {
     }
 
     handleUserProfileSave = () => {
-        this.setState({
-            viewPosts: true,
-            activeProfile: {}
-        });
         this.getProfiles();
     }
 
@@ -121,6 +119,7 @@ class AppPage extends React.Component {
                         }
                     </div>
                 </div>
+                <footer className="footer">Copyright <i className="far fa-copyright"></i></footer>
             </div>
         )
     }
