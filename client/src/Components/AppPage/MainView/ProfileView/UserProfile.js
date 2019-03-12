@@ -105,8 +105,8 @@ class UserProfile extends React.Component {
 
     render() {
         return (
-            <div className="card">
-            <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
+            <div className="card bounce-in-top">
+            <button type="button" onClick={this.props.handleCloseProfile} className="closeButton" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
                 <div className="card-body">
@@ -159,7 +159,7 @@ class UserProfile extends React.Component {
                         <input className="card-text form-control" value={this.state.location} onChange={this.handleChange} name="location" />
                     </div>
                 </div>
-                <button onClick={this.handleSubmit}>Save Changes</button>
+                <button className="filterListButton" onClick={this.handleSubmit}>Save Changes</button>
             </div>)
     }
 }
