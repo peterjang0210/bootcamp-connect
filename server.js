@@ -17,13 +17,13 @@ if (process.env.NODE_ENV === "production") {
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/bootcampDB', { useNewUrlParser: true });
 
-
-require('./routes/html-routes')(app);
 require('./routes/api-routes')(app);
 
-app.get("*", (req, res) => {a
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(PORT, function () {
   console.log(`App running on port ${PORT}`);
