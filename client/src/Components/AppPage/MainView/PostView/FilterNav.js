@@ -4,10 +4,11 @@ const FilterNav = (props) => (
     <div>
         <div className="dropdown">
             <button className="btn filterPost dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Cohort
+                Filter
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a className="dropdown-item" onClick={props.filterClick}>GT2019FT</a>
+                <a className="dropdown-item" onClick={props.filterAllClick}>All Posts</a>
+                <a className="dropdown-item" onClick={props.filterCohortClick}>GTATL201901</a>
             </div>
         </div>
     </div>

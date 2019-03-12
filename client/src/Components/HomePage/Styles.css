@@ -104,6 +104,10 @@ header {
     width: 20%;
 }
 
+.postCard {
+        margin: 10px;
+}
+
 .swing-in-top-bck {
 	-webkit-animation: swing-in-top-bck 1s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
 	        animation: swing-in-top-bck 1s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
@@ -113,6 +117,37 @@ header {
 	-webkit-animation: bounce-in-top 1.5s both;
 	        animation: bounce-in-top 1.5s both;
 }
+
+.slide-in-right {
+	-webkit-animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @-webkit-keyframes slide-in-right {
+        0% {
+          -webkit-transform: translateX(1000px);
+                  transform: translateX(1000px);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: translateX(0);
+                  transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      @keyframes slide-in-right {
+        0% {
+          -webkit-transform: translateX(1000px);
+                  transform: translateX(1000px);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: translateX(0);
+                  transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
 
 /* .closeButton {
     width: 18px;

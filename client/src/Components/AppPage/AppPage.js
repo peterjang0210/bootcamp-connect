@@ -46,6 +46,8 @@ class AppPage extends React.Component {
                 console.log('all profiles', allProfiles)
                 this.setState({
                     profiles: allProfiles,
+                    activeProfile: this.state.userProfile,
+                    canEdit: false
                 })
             })
     }
@@ -86,9 +88,6 @@ class AppPage extends React.Component {
     }
 
     handleUserProfileSave = () => {
-        this.setState({
-            canEdit: false
-        });
         this.getProfiles();
     }
 
