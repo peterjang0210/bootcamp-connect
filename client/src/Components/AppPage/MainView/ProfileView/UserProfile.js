@@ -142,7 +142,7 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Links</h5>
-                        {this.state.links.map((link, i) => <span key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button onClick={this.handleDeleteLinks} id={i}>Delete</button></span>)}
+                        {this.state.links.map((link, i) => <span className="badge badge-pill badge-primary" key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button className="btn btn-danger" onClick={this.handleDeleteLinks} id={i}><i className="fas fa-times"></i></button></span>)}
                         <hr />
                         <label>URL</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
@@ -156,7 +156,7 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Skills</h5>
-                        {this.state.skills.map((skill, i) => <div className="card" key={i}><p>{skill.skillName}</p><p>{skill.skillLevel}</p><button onClick={this.handleDeleteSkills} id={i}>Delete</button></div>)}
+                        {this.state.skills.map((skill, i) => <span className="badge badge-pill badge-primary" key={i}>{skill.skillName}: {skill.skillLevel}     <button className="btn btn-danger" onClick={this.handleDeleteSkills} id={i}><i className="fas fa-times"></i></button></span>)}
                         <hr />
                         <label>Skill Name</label>
                         <select className="custom-select" defaultValue="0" onChange={this.handleSkillsValue}>
@@ -173,9 +173,9 @@ class UserProfile extends React.Component {
                             <option value="Mongoose">Mongoose</option>
                             <option value="React.js">React.js</option>
                         </select>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
+                        <input type="text" className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
                         <label>Skill Level</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
+                        <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
                         <button onClick={this.handleAddSkills}>Add</button>
                     </div>
                     <div className="form-group">
