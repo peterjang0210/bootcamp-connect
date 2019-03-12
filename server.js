@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === "production") {
 
 mongoose.connect('mongodb://localhost/bootcampDB', { useNewUrlParser: true });
 
+
 require('./routes/html-routes')(app);
 require('./routes/api-routes')(app);
 

@@ -1,16 +1,17 @@
-const db = require("../models");
+const Profile = require("../models/Profile");
+const User = require("../models/User");
 
 
 let users = [
     {
-        "username": "TestUser1@gmail.com",
+        "username": "james@gmail.com",
         "password": "funfunfun",
         "cohortId": "GTATL201901",
         "profile": "",
         "posts": []
     },
     {
-        "username": "TestUser2@gmail.com",
+        "username": "jack@gmail.com",
         "password": "funfunfun",
         "cohortId": "GTATL201901",
         "profile": "",
@@ -20,36 +21,67 @@ let users = [
 
 let profiles = [
     {
-        "firstName": "TestUserFirstName1",
-        "lastName": "TestUserLastName1",
-        "email": "TestUser1@gmail.com",
-        "phoneNumber": "123-456-7890",
-        "description": "This is a test profile. This is the description field",
-        "links": [
-            {
-                "URL": "https://github.com/peterjang0210/bootcamp-directory",
-                "linkDescription": "GitHub"
-            },
-            {
-                "URL": "www.google.com",
-                "linkDescription": "Google"
-            }
-        ],
-        "employmentStatus": "Seeking Employement",
-        "skills": [
-            {
-                "skillName": "HTML",
-                "skillLevel": 4
-            },
-            {
-                "skillName": "MongoDB",
-                "skillLevel": 2
-            }
-        ],
-        "cohortId": "GTATL201901",
-        "location": "Atlanta, GA, USA"
+        firstName: "bob",
+        lastName: "bobert",
+        email: "bob@gmail.com",
+        phoneNumber: "770-880-2929",
+        image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+        cohortId: "GTATL201901",
+        isLooking: true
+    },
+    {
+        firstName: "erwins",
+        lastName: "saget",
+        email: "erwins@gmail.com",
+        phoneNumber: "770-880-2929",
+        image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+        isLooking: true,
+        cohortId: "GTATL201901"
+    },
+    {
+        firstName: "peter",
+        lastName: "bobert",
+        email: "peter@gmail.com",
+        phoneNumber: "770-880-2929",
+        image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+        isLooking: false,
+        cohortId: "GTATL201901"
+    },
+    {
+        firstName: "nick",
+        lastName: "bobert",
+        email: "nick@gmail.com",
+        phoneNumber: "770-880-2929",
+        image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+        isLooking: false,
+        cohortId: "GTATL201901"
+    },
+    {
+        firstName: "tim",
+        lastName: "bobert",
+        email: "tim@gmail.com",
+        phoneNumber: "770-880-2929",
+        image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+        isLooking: true,
+        cohortId: "GTATL201901"
     }
 ]
 
-module.exports = JSON.stringify(users);
-module.exports = JSON.stringify(profiles);
+users.forEach((user) => {
+    const newuser = new User(user);
+    newuser.save((err,obj) => {
+        if (err) return console.log(err)
+    })
+})
+
+
+profiles.forEach((profile) => {
+    const newprof = new Profile(profile)
+    newprof.save((err,obj) => {
+        if (err) return console.log(err)
+    })
+})
+
+
+// module.exports = JSON.stringify(users);
+// module.exports = JSON.stringify(profiles);

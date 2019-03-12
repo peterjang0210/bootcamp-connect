@@ -42,6 +42,7 @@ const ProfileSchema = new Schema({
     },
     links: Array,
     employmentStatus: String,
+    isLooking: Boolean, // yes/no is currently looking for work
     skills: Array,
     cohortId: String,
     location: {
@@ -49,6 +50,7 @@ const ProfileSchema = new Schema({
         trim: true
     }  
 });
+
 
 const Profile = mongoose.model("Profile", ProfileSchema);
 

@@ -1,7 +1,17 @@
 import React from 'react';
+import Header from './Header';
+import ContactView from './ContactsView';
 
 const SideNav = (props) => (
-    <div></div>
+    <div>
+        <Header 
+            userProfile={props.userProfile} 
+            handleUserContactClick={props.handleUserContactClick} />
+        <ContactView 
+            profiles={props.profiles} 
+            cohortId={props.cohortId} 
+            handleContactClick={props.handleContactClick}/>
+    </div>
 )
 
 export default SideNav;
