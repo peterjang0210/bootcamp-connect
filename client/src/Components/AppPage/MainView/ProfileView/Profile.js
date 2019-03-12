@@ -9,16 +9,16 @@ const Profile = (props) => (
             <h6 className="card-text"> Bio</h6>
             <p className="card-text">{props.profile.description}</p>
             <h6 className="card-text">Links</h6>
-            {props.profile.links.map((link, i) => 
+            {/* {props.profile.links.map((link, i) => 
             <div key={i}>
                 <a className="card-text" href={link.URL}>{link.linkDescription}</a>
-            </div>)}
+            </div>)} */}
             <p className="card-text">Employment Status: {props.profile.employmentStatus}</p>
-            <h6 className="card-text">Skills</h6>
+            {/* <h6 className="card-text">Skills</h6>
             {props.profile.skills.map((skill, i) =>
             <div key={i}>
                 <p className="card-text">{skill.skillName}: {skill.skillLevel}</p>
-            </div>)}
+            </div>)} */}
             <p className="card-text">Location: {props.profile.location}</p>
         </div>
     </div>

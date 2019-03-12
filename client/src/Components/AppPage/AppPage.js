@@ -7,58 +7,69 @@ import * as $ from "axios";
 
 class AppPage extends React.Component {
     state = {
-        profiles: [],
-        activeProfile: {
-            "_id": "5c7940c1a883ba055d8c0308",
-            "image": "none",
-            "links": [
-                {
-                    "URL": "https://github.com/peterjang0210/bootcamp-directory",
-                    "linkDescription": "GitHub"
-                },
-                {
-                    "URL": "www.google.com",
-                    "linkDescription": "Google"
-                }
-            ],
-            "skills": [
-                {
-                    "skillName": "HTML",
-                    "skillLevel": 4
-                },
-                {
-                    "skillName": "MongoDB",
-                    "skillLevel": 2
-                }
-            ],
-            "firstName": "TestUserFirstName1",
-            "lastName": "TestUserLastName1",
-            "email": "TestUser1@gmail.com",
-            "phoneNumber": "123-456-7890",
-            "description": "This is a test profile. This is the description field",
-            "employmentStatus": "Seeking Employement",
-            "cohortId": "GTATL201901",
-            "location": "Atlanta, GA, USA"
-        },
+        profiles: [
+            {
+                firstName: "bob",
+                lastName: "bobert",
+                email: "bob@gmail.com",
+                phoneNumber: "770-880-2929",
+                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+                isLooking: true,
+            },
+            {
+                firstName: "erwins",
+                lastName: "saget",
+                email: "erwins@gmail.com",
+                phoneNumber: "770-880-2929",
+                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+                isLooking: true,
+            },
+            {
+                firstName: "peter",
+                lastName: "bobert",
+                email: "peter@gmail.com",
+                phoneNumber: "770-880-2929",
+                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+                isLooking: false,
+            },
+            {
+                firstName: "nick",
+                lastName: "bobert",
+                email: "nick@gmail.com",
+                phoneNumber: "770-880-2929",
+                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+                isLooking: false,
+            },
+            {
+                firstName: "tim",
+                lastName: "bobert",
+                email: "tim@gmail.com",
+                phoneNumber: "770-880-2929",
+                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
+                isLooking: true,
+            }
+        ],
+        activeProfile: {},
         userProfile: {},
-        viewPosts: false,
-        userId: sessionStorage.getItem("userId"),
-        cohortId: sessionStorage.getItem("cohortId"),
-        accessToken: sessionStorage.getItem("token"),
+        viewPosts: true,
+        userId: localStorage.getItem("userId"),
+        cohortId: localStorage.getItem("cohortId"),
+        // accessToken: localStorage.getItem("token"),
+        accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzg2YThlYTliN2JjM2JjMjE3MDlkZjgiLCJjb2hvcnRJZCI6IkdUQVRMMjAxOTAxIiwiaWF0IjoxNTUyMzQ5Njc2LCJleHAiOjE1NTIzNjA0NzZ9.DHA28uFi4J4o6UZnThd_DAVDagSILA1rzZCH3mepakA",
         canEdit: true
     }
 
     componentDidMount() {
         // get the users profile data via the access token using ajax request
         $({
-            url: `/api/profiles/${this.state.userId}`,
+            url: `/api/users/${this.state.userId}`,
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         }).then((userProfile) => {
-                this.setState({
-                    userProfile: userProfile
-                })
-            })
+            this.setState({
+                userProfile: userProfile.data,
+            });
+        })
         $({
             url: '/api/profiles',
             method: "GET",
@@ -66,7 +77,7 @@ class AppPage extends React.Component {
         })
             .then((allProfiles) => {
                 this.setState({
-                    profiles: allProfiles,
+                    // profiles: allProfiles,
                     // viewPosts: true
                 })
             })
@@ -107,7 +118,13 @@ class AppPage extends React.Component {
             <div className="container">
             <div className='row'>
             <div className="col-4">
-                <SideNav profiles={this.state.profiles} userProfile={this.state.userProfile}  handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
+                <SideNav 
+                    cohortId={this.state.cohortId}
+                    accesToken={this.state.accessToken}
+                    profiles={this.state.profiles} 
+                    userProfile={this.state.userProfile}   
+                    handleUserContactClick={this.handleUserContactClick} 
+                    handleContactClick={this.handleContactClick} />
             </div>
             <div className='col-8' >
                 {this.state.viewPosts 

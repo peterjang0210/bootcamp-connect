@@ -23,7 +23,7 @@ const CreatePost = (props) => (
                 </div>
                 <div className="form-group">
                     <label>Category</label>
-                    <input name="category" onChange={props.handleChange} placeholder="general, meetups, employment" className="form-control" />
+                    <input name="category" onChange={props.handleChange} placeholder="general, meetup, employment" className="form-control" />
                 </div>
                 <button type="submit" onClick={props.createPost}>Create Post</button>
             </form>
