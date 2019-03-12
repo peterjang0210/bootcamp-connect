@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Registration from "./Registration";
 import Login from "./Login";
 import * as $ from 'axios';
+import "./Styles.css"
 
 const Alert = (props) => {
     return (
@@ -81,6 +82,7 @@ class HomePage extends Component {
                         },
                         headers: { 'Authorization': 'Bearer ' + response.data.token }
                     }).then((profile) => {
+                        console.log("stored profile is: ", profile);
                         localStorage.setItem("profileId", profile.data._id);
                     })
                     this.setLocation(response.status);

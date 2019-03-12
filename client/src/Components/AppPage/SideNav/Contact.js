@@ -14,7 +14,10 @@ const Contact = props => (
               <span className="fa fa-map-marker fa-fw text-muted" data-toggle="tooltip" title="" data-original-title="Is Looking"></span>
               <span className="text-muted">Is Totally Looking</span>
               </div>
-            ) : (null) }
+            ) : (<div>
+              <span className="fa fa-map-marker fa-fw text-muted" data-toggle="tooltip" title="" data-original-title="Is Looking"></span>
+              <span className="text-muted">Is Happily Employed</span>
+              </div>) }
         </div>
     </div>
   </li> 
