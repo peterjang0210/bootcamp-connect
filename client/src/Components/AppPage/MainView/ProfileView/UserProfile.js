@@ -62,6 +62,7 @@ class UserProfile extends React.Component {
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
         }).then((response) => {
             console.log(response);
+            this.props.save();
         })
     }
 

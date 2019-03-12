@@ -10,7 +10,7 @@ class AppPage extends React.Component {
         profiles: [],
         activeProfile: {},
         userProfile: {},
-        viewPosts: false,
+        viewPosts: true,
         userId: localStorage.getItem("userId"),
         cohortId: localStorage.getItem("cohortId"),
         accessToken: localStorage.getItem("token"),
@@ -28,6 +28,11 @@ class AppPage extends React.Component {
                 userProfile: userProfile.data,
             });
         })
+        this.getProfiles();
+        console.log('\n app page straight up mounted yo \n \n')
+    }
+
+    getProfiles = () => {
         $({
             url: '/api/profiles',
             method: "GET",
@@ -40,8 +45,8 @@ class AppPage extends React.Component {
                     profiles: allProfiles,
                 })
             })
-        console.log('\n app page straight up mounted yo \n \n')
     }
+
     handleContactClick = (contactId, e) => {
         e.preventDefault();
         console.log('hello there the contact has been clicked')
@@ -76,6 +81,14 @@ class AppPage extends React.Component {
         })
     }
 
+    handleUserProfileSave = () => {
+        this.setState({
+            viewPosts: true,
+            activeProfile: {}
+        });
+        this.getProfiles();
+    }
+
     render() {
         return (
             <div className="container">
@@ -99,7 +112,8 @@ class AppPage extends React.Component {
                                 userId={this.state.userId}
                                 accessToken={this.state.accessToken}
                                 editable={this.state.canEdit}
-                                profile={this.state.activeProfile} />
+                                profile={this.state.activeProfile}
+                                save={this.handleUserProfileSave} />
                         }
                     </div>
                 </div>
