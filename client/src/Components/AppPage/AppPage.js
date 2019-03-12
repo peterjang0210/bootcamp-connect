@@ -36,14 +36,18 @@ class AppPage extends React.Component {
         })
             .then((allProfiles) => {
                 this.setState({
-                    profiles: allProfiles,
+                    profiles: allProfiles.data,
                     // viewPosts: true
                 })
             })
+        console.log(this.state.profiles);
     }
     handleContactClick = (e) => {
         e.preventDefault();
-        const activeProfile = this.profiles.find() // find profile by id
+        const activeContactId = e.target.id;
+        const activeProfile = this.profiles.find((profile) => {
+            return profile._id === activeContactId
+        }) 
         this.setState({
             viewPosts: false,
             activeProfile: activeProfile
@@ -54,6 +58,7 @@ class AppPage extends React.Component {
         e.preventDefault();
         this.setState({
             viewPosts: false,
+            activeProfile: this.state.userProfile,
             canEdit: true
         })
         // toggle css class of selected contact to indicate active status
@@ -62,25 +67,32 @@ class AppPage extends React.Component {
         e.preventDefault();
         this.setState({
             viewPosts: true,
-            canEdit: false,
-            activeProfile: {}
+            activeProfile: {},
+            canEdit: false
+        
         })
     }
 
     render() {
         return (
-            <div>
-                <SideNav userProfile={this.state.userProfile} handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
-                {this.state.viewPosts
-                    ? <PostView
-                        userId={this.state.userId}
-                        cohortId={this.state.cohortId}
-                        accessToken={this.state.accessToken} />
-                    : <ProfileView
-                        userId={this.state.userId}
-                        accessToken={this.state.accessToken}
-                        profile={this.state.activeProfile}
-                        editable={this.state.canEdit} />}
+            <div className="container">
+            <div className='row'>
+            <div className="col-4">
+                <SideNav profiles={this.state.profiles} userProfile={this.state.userProfile}  handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
+            </div>
+            <div className='col-8' >
+                {this.state.viewPosts 
+                ? <PostView 
+                    userId={this.state.userId}
+                    cohortId={this.state.cohortId}
+                    accessToken={this.state.accessToken} />
+                : <ProfileView 
+                    userId={this.state.userId}
+                    accessToken={this.state.accessToken}
+                    editable={this.state.canEdit} />
+                }
+            </div>
+            </div>
             </div>
         )
     }

@@ -9,13 +9,29 @@ class UserProfile extends React.Component {
         phoneNumber: "",
         employmentStatus: "",
         description: "",
-        links: "",
-        skills: "",
+        links: [],
+        skills: [],
         location: ""
     }
 
     componentDidMount(){
-        this.setState({user: this.props.profile});
+        $({
+            url: `/api/users/${this.props.userId}`,
+            method: "GET",
+            headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
+        }).then((profile) => {
+            this.setState({
+                firstName: profile.data.firstName,
+                lastName: profile.data.lastName,
+                email: profile.data.email,
+                phoneNumber: profile.data.phoneNumber,
+                employmentStatus: profile.data.employmentStatus,
+                description: profile.data.description,
+                links: profile.data.links,
+                skills: profile.data.skills,
+                location: profile.data.location
+            });
+        })
     }
 
     handleChange = (event) => {
@@ -67,16 +83,16 @@ class UserProfile extends React.Component {
                         <label>Bio</label>
                         <input className="card-text form-control" value={this.state.description} onChange={this.handleChange} name="description"/>
                     </div>
-                    {/* <div className="form-group">
+                    <div className="form-group">
                         <label>Links</label>
                         {this.state.links && (this.state.links.map((link, i) =>
                             <div key={i}>
                                 <label>URL</label>
-                                <input className="card-text form-control" value={this.state.links[i].URL} onChange={this.handleChange} />
+                                <input className="card-text form-control" value={link.URL} onChange={this.handleChange} />
                                 <label>Description</label>
-                                <input className="card-text form-control" value={this.state.links[i].linkDescription} onChange={this.handleChange} />
+                                <input className="card-text form-control" value={link.linkDescription} onChange={this.handleChange} />
                             </div>))}
-                    </div> */}
+                    </div>
                     <div className="form-group">
                         <label>Employment Status</label>
                         <input className="card-text form-control" value={this.state.employmentStatus} onChange={this.handleChange} name="employmentStatus"/>
