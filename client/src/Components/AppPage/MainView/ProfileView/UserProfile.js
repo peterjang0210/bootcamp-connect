@@ -60,7 +60,8 @@ class UserProfile extends React.Component {
                 description: this.state.description,
                 employmentStatus: this.state.employmentStatus,
                 location: this.state.location,
-                isLooking: this.state.isLooking
+                isLooking: this.state.isLooking,
+                cohortId: localStorage.getItem("cohortId")
             },
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
         }).then((response) => {
