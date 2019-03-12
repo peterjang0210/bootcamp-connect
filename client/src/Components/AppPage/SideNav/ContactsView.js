@@ -5,44 +5,20 @@ import * as $ from "axios";
 
 class ContactsView extends React.Component {
     state = {
-        isCohort: true,
-        accessToken: "",
-        cohortProfiles: [],
-        allProfiles: [],
-        cohortId: "",
-        userProfile: {}
+        isCohort: false,
     }
     componentDidMount() {
+        const allProfiles = this.props.profiles;
+        const cohortProfiles = allProfiles.filter((profile) => {return profile.cohortId === this.state.cohortId});
         this.setState({
-            accessToken: this.props.accessToken,
-            cohortId: this.props.cohortId
+            allProfiles: allProfiles,
+            cohortProfiles: cohortProfiles,
         })
-        $({
-            url: `/api/users/${this.state.userId}`,
-            method: "GET",
-            headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
-        }).then((userProfile) => {
-            this.setState({
-                userProfile: userProfile.data,
-            });
-        })
-        $({
-            url: '/api/profiles',
-            method: "GET",
-            headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
-        })
-            .then((getProfilesResponse) => {
-                const allProfiles = getProfilesResponse.data;
-                const cohortProfiles = allProfiles.filter((profile) => {return profile.cohortId === this.state.cohortId})
-                this.setState({
-                    allProfiles: allProfiles.data,
-                    // viewPosts: true
-                })
-            })
-        this.setState({
-            allProfiles: this.props.profiles
-
-        })
+    }
+    getCohortProfiles = () => {
+        const cohortProfiles = this.props.profiles.filter((profile) => { return profile.cohortId === this.props.cohortId })
+        console.log('cohort profiles ',cohortProfiles)
+        return cohortProfiles
     }
     handleShowCohortList = (e) => {
         e.preventDefault();
@@ -61,8 +37,18 @@ class ContactsView extends React.Component {
 
     render() {
         return <div>
-            <ContactsFilter showCohort={this.handleShowCohortList} showAll={this.handleShowAllList} />
-            {this.state.isCohort ? <ContactsList contactsList={this.state.cohortProfiles} /> : <ContactsList contactsList={this.state.allProfiles} />}
+            <ContactsFilter 
+                showCohort={this.handleShowCohortList} 
+                showAll={this.handleShowAllList} />
+            {this.state.isCohort 
+                ? 
+            <ContactsList 
+                handleContactClick={this.props.handleContactClick}
+                contactsList={this.getCohortProfiles()} /> 
+                : 
+            <ContactsList 
+                handleContactClick={this.props.handleContactClick}
+                contactsList={this.props.profiles} />}
         </div>
     }
 }

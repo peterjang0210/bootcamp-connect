@@ -4,8 +4,13 @@ import ContactView from './ContactsView';
 
 const SideNav = (props) => (
     <div>
-        <Header userProfile={props.userProfile} handleUserContactClick={props.handleUserContactClick} />
-        <ContactView profiles={props.profiles} handleContactClick={props.handleContactClick}/>
+        <Header 
+            userProfile={props.userProfile} 
+            handleUserContactClick={props.handleUserContactClick} />
+        <ContactView 
+            profiles={props.profiles} 
+            cohortId={props.cohortId} 
+            handleContactClick={props.handleContactClick}/>
     </div>
 )
 

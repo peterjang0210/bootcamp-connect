@@ -2,6 +2,9 @@ import React from 'react';
 
 const Profile = (props) => (
     <div className="card">
+    <button type="button" onClick={props.handleCloseProfile} className="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
         <div className="card-body">
             <h5 className="card-title">{props.profile.firstName + " " + props.profile.lastName}</h5>
             <p className="card-text">Email: {props.profile.email}</p>

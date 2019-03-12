@@ -5,6 +5,7 @@ const ContactsList = (props) => (
     <ul className="list-unstyled list-group pull-down" id="contact-list">
     {props.contactsList.map(contact => 
     <Contact 
+        handleContactClick={props.handleContactClick}
         key={contact._id} 
         id={contact._id}
         isLooking={contact.isLooking} 

@@ -3,7 +3,7 @@ import React from 'react';
 
 const Contact = props => (
   <li className="list-group-item">
-    <div className="row w-100">
+    <div onClick={(e)=>{props.handleContactClick(props.id, e)}} className="row w-100">
         <div className="col-12 col-sm-6 col-md-3 px-0">
             <img src="http://demos.themes.guide/bodeo/assets/images/users/m105.jpg" alt={props.firstName + ' ' + props.lastName} className="img-fluid rounded-circle d-block mx-auto"></img>
         </div>

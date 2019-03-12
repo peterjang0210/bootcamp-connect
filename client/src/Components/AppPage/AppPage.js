@@ -7,87 +7,53 @@ import * as $ from "axios";
 
 class AppPage extends React.Component {
     state = {
-        profiles: [
-            {
-                firstName: "bob",
-                lastName: "bobert",
-                email: "bob@gmail.com",
-                phoneNumber: "770-880-2929",
-                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
-                isLooking: true,
-            },
-            {
-                firstName: "erwins",
-                lastName: "saget",
-                email: "erwins@gmail.com",
-                phoneNumber: "770-880-2929",
-                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
-                isLooking: true,
-            },
-            {
-                firstName: "peter",
-                lastName: "bobert",
-                email: "peter@gmail.com",
-                phoneNumber: "770-880-2929",
-                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
-                isLooking: false,
-            },
-            {
-                firstName: "nick",
-                lastName: "bobert",
-                email: "nick@gmail.com",
-                phoneNumber: "770-880-2929",
-                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
-                isLooking: false,
-            },
-            {
-                firstName: "tim",
-                lastName: "bobert",
-                email: "tim@gmail.com",
-                phoneNumber: "770-880-2929",
-                image: "http://demos.themes.guide/bodeo/assets/images/users/w102.jpg",
-                isLooking: true,
-            }
-        ],
+        profiles: [],
         activeProfile: {},
         userProfile: {},
         viewPosts: true,
-        userId: localStorage.getItem("userId"),
-        cohortId: localStorage.getItem("cohortId"),
+        // userId: localStorage.getItem("userId"),
+        // cohortId: localStorage.getItem("cohortId"),
         // accessToken: localStorage.getItem("token"),
-        accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzg2YThlYTliN2JjM2JjMjE3MDlkZjgiLCJjb2hvcnRJZCI6IkdUQVRMMjAxOTAxIiwiaWF0IjoxNTUyMzQ5Njc2LCJleHAiOjE1NTIzNjA0NzZ9.DHA28uFi4J4o6UZnThd_DAVDagSILA1rzZCH3mepakA",
+        userId: "5c86a8ea9b7bc3bc21709df8",
+        cohortId: "GTATL201901",
+        accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzg2YThlYTliN2JjM2JjMjE3MDlkZjgiLCJjb2hvcnRJZCI6IkdUQVRMMjAxOTAxIiwiaWF0IjoxNTUyMzYxMTI4LCJleHAiOjE1NTIzNzE5Mjh9.0RTSDkEL9FCJGgbNxRR2vpgktpLKbB-ySYtLXBVTl_k",
         canEdit: true
     }
 
     componentDidMount() {
-        // get the users profile data via the access token using ajax request
         $({
             url: `/api/users/${this.state.userId}`,
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         }).then((userProfile) => {
+            console.log("userProfile: ", userProfile.data)
             this.setState({
                 userProfile: userProfile.data,
             });
-        })
+            })
         $({
             url: '/api/profiles',
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         })
-            .then((allProfiles) => {
+            .then((getProfilesResponse) => {
+                const allProfiles = getProfilesResponse.data;
+                console.log('all profiles', allProfiles)
                 this.setState({
-                    // profiles: allProfiles,
-                    // viewPosts: true
+                    profiles: allProfiles,
                 })
             })
+        console.log('\n app page straight up mounted yo \n \n')
     }
-    handleContactClick = (e) => {
+    handleContactClick = (contactId, e) => {
         e.preventDefault();
-        const activeContactId = e.target.id;
-        const activeProfile = this.profiles.find((profile) => {
+        console.log('hello there the contact has been clicked')
+        const activeContactId = contactId;
+        console.log('and the active contact id is ', activeContactId)
+        const activeProfile = this.state.profiles.find((profile) => {
             return profile._id === activeContactId
         }) 
+        console.log('active profile is ', activeProfile)
         this.setState({
             viewPosts: false,
             activeProfile: activeProfile
@@ -120,9 +86,8 @@ class AppPage extends React.Component {
             <div className="col-4">
                 <SideNav 
                     cohortId={this.state.cohortId}
-                    accesToken={this.state.accessToken}
-                    profiles={this.state.profiles} 
-                    userProfile={this.state.userProfile}   
+                    profiles={this.state.profiles}
+                    userProfile={this.state.userProfile}
                     handleUserContactClick={this.handleUserContactClick} 
                     handleContactClick={this.handleContactClick} />
             </div>
@@ -133,6 +98,7 @@ class AppPage extends React.Component {
                     cohortId={this.state.cohortId}
                     accessToken={this.state.accessToken} />
                 : <ProfileView 
+                    handleCloseProfile={this.handleCloseProfile}
                     userId={this.state.userId}
                     accessToken={this.state.accessToken}
                     profile={this.state.activeProfile}

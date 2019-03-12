@@ -46,6 +46,9 @@ class UserProfile extends React.Component {
     render() {
         return (
             <div className="card">
+            <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
                 <div className="card-body">
                     <div className="form-group">
                         <label>First Name</label>
