@@ -7,6 +7,12 @@ import Contacts from './Components/AppPage/SideNav/Contacts';
 import Profile from './Components/AppPage/MainView/ProfileView/Profile';
 
 class App extends Component {
+
+  state = {
+    isAuthenticated: false
+  }
+
+
   render() {
     return (
       <Router>
@@ -26,6 +32,6 @@ class App extends Component {
       </Router>
     );
   }
-}
-
+};
 export default App;
+
