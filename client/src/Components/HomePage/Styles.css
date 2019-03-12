@@ -26,6 +26,7 @@ header {
     border-radius: 25px;
     font-size: 1.1rem;
     text-decoration: none;
+    float: none;
 }
 
 .inputLabel {
@@ -148,6 +149,19 @@ header {
         }
       }
       
+.inputLabel {
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 250px;
+    text-align: right;
+}
+
+.inputField {
+  display: inline-block;
+  margin-right: 100px;
+  float: left;
+}
 
 /* .closeButton {
     width: 18px;
