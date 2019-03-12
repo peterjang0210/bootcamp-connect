@@ -73,21 +73,12 @@ class UserProfile extends React.Component {
 
     handleDeleteLinks = (event) => {
         event.preventDefault();
-        console.log("link delete");
-        console.log(event.target.id);
-        if(event.target.id === 0) {
-            if(this.state.links.length > 1){
-                const newLinkList = this.state.links.splice(event.target.id - 1, 1);
-                this.setState({links: newLinkList});
+        const newLinkList = this.state.links.filter((link, i) => {
+            if(event.target.id  != i){
+                return link;
             }
-            else{
-                this.setState({links: []});
-            }
-        }
-        else{
-            const newLinkList = this.state.links.splice(event.target.id - 1, 1);
-            this.setState({links: newLinkList});
-        }
+        })
+        this.setState({links: newLinkList});
     }
 
     handleAddSkills = (event) => {
@@ -98,8 +89,11 @@ class UserProfile extends React.Component {
 
     handleDeleteSkills = (event) => {
         event.preventDefault();
-        console.log(event.target.id);
-        const newSkillList = this.state.skills.splice(event.target.id - 1, 1);
+        const newSkillList = this.state.skills.filter((skill, i) => {
+            if(event.target.id != i){
+                return skill;
+            }
+        })
         this.setState({skills: newSkillList});
     }
 
