@@ -12,8 +12,10 @@ class UserProfile extends React.Component {
         links: [],
         skills: [],
         location: "",
-        newURL: "",
-        newLinkDescription: ""
+        URL: "",
+        linkDescription: "",
+        skillName: "",
+        skillLevel: ""
     }
 
     componentDidMount() {
@@ -52,6 +54,7 @@ class UserProfile extends React.Component {
                 email: this.state.email,
                 phoneNumber: this.state.phoneNumber,
                 links: this.state.links,
+                skills: this.state.skills,
                 description: this.state.description,
                 employmentStatus: this.state.employmentStatus,
                 location: this.state.location
@@ -62,16 +65,28 @@ class UserProfile extends React.Component {
         })
     }
 
-    handleAdd = (event) => {
+    handleAddLinks = (event) => {
         event.preventDefault();
         const newLink = { URL: this.state.newURL, linkDescription: this.state.newLinkDescription }
         this.setState({ links: this.state.links.concat(newLink) })
     }
 
-    handleDelete = (event) => {
+    handleDeleteLinks = (event) => {
         event.preventDefault();
         const newLinkList = this.state.links.splice(event.target.id - 1, 1);
         this.setState({links: newLinkList});
+    }
+
+    handleAddSkills = (event) => {
+        event.preventDefault();
+        const newSkill = { skillName: this.state.skillName, skillLevel: this.state.skillLevel }
+        this.setState({ skills: this.state.skills.concat(newSkill) })
+    }
+
+    handleDeleteSkills = (event) => {
+        event.preventDefault();
+        const newSkillList = this.state.skills.splice(event.target.id - 1, 1);
+        this.setState({skills: newSkillList});
     }
 
     render() {
@@ -99,29 +114,29 @@ class UserProfile extends React.Component {
                         <input className="card-text form-control" value={this.state.description} onChange={this.handleChange} name="description" />
                     </div>
                     <div className="form-group">
-                        <h6>Links</h6>
-                        {this.state.links.map((link, i) => <span key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button onClick={this.handleDelete} id={i}>Delete</button></span>)}
+                        <h5>Links</h5>
+                        {this.state.links.map((link, i) => <span key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button onClick={this.handleDeleteLinks} id={i}>Delete</button></span>)}
                         <hr/>
                         <label>URL</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="newURL" />
+                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
                         <label>Link Description</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.newLinkDescription} name="newLinkDescription" />
+                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.newLinkDescription} name="LinkDescription" />
+                        <button onClick={this.handleAddLinks}>Add</button>
                     </div>
-                    <button onClick={this.handleAdd}>Add</button>
                     <div className="form-group">
                         <label>Employment Status</label>
                         <input className="card-text form-control" value={this.state.employmentStatus} onChange={this.handleChange} name="employmentStatus" />
                     </div>
-                    {/* <div className="form-group">
-                        <label>Skills</label>
-                        {this.state.skills.map((skill, i) =>
-                            <div key={i}>
-                                <label>Skill</label>
-                                <input className="card-text form-control" value={this.state.skills[i].skillName} onChange={this.handleChange}/>
-                                <label>Skill Level</label>
-                                <input className="card-text form-control" value={this.state.skills[i].skillLevel} onChange={this.handleChange}/>
-                            </div>)}
-                    </div> */}
+                    <div className="form-group">
+                        <h5>Skills</h5>
+                        {this.state.skills.map((skill, i) => <div className="card" key={i}><p>{skill.skillName}</p><p>{skill.skillLevel}</p><button onClick={this.handleDeleteSkills} id={i}>Delete</button></div>)}
+                        <hr/>
+                        <label>Skill Name</label>
+                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" />
+                        <label>Skill Level</label>
+                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
+                        <button onClick={this.handleAddSkills}>Add</button>
+                    </div>
                     <div className="form-group">
                         <label>Location</label>
                         <input className="card-text form-control" value={this.state.location} onChange={this.handleChange} name="location" />

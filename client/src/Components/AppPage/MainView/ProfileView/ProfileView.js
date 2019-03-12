@@ -7,8 +7,7 @@ const ProfileView = (props) => (
         {props.editable
             ? <UserProfile 
                 userId={props.userId} 
-                accessToken={props.accessToken}
-                profile={props.profile}/> 
+                accessToken={props.accessToken}/> 
             : <Profile profile={props.profile}/>}
     </div>
 )

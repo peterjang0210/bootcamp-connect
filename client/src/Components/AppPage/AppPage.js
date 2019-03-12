@@ -14,7 +14,7 @@ class AppPage extends React.Component {
         userId: localStorage.getItem("userId"),
         cohortId: localStorage.getItem("cohortId"),
         accessToken: localStorage.getItem("token"),
-        canEdit: true
+        canEdit: false
     }
 
     componentDidMount() {
@@ -89,7 +89,8 @@ class AppPage extends React.Component {
                 : <ProfileView 
                     userId={this.state.userId}
                     accessToken={this.state.accessToken}
-                    editable={this.state.canEdit} />
+                    editable={this.state.canEdit}
+                    profile={this.state.activeProfile} />
                 }
             </div>
             </div>
