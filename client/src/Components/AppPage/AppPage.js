@@ -101,8 +101,8 @@ class AppPage extends React.Component {
                     handleCloseProfile={this.handleCloseProfile}
                     userId={this.state.userId}
                     accessToken={this.state.accessToken}
-                    profile={this.state.activeProfile}
-                    editable={this.state.canEdit} />
+                    editable={this.state.canEdit}
+                    profile={this.state.activeProfile} />
                 }
             </div>
             </div>

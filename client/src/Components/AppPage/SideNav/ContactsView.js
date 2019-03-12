@@ -7,6 +7,7 @@ class ContactsView extends React.Component {
     state = {
         isCohort: false,
     }
+
     componentDidMount() {
         const allProfiles = this.props.profiles;
         const cohortProfiles = allProfiles.filter((profile) => {return profile.cohortId === this.state.cohortId});
