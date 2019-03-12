@@ -1,12 +1,24 @@
 .App {
   text-align: center;
 }
-
-.rounded-circle {
-    border-style: solid;
-    border-color: blue;
-    border-width: 5px;
+#root {
+  padding: 15px;
 }
+
+.isLooking {
+    border-style: solid;
+    border-color: #1c66d4;
+    border-width: 3px;
+}
+
+.isNotLooking {
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
+
+
+
 .contact {
   margin: 5px;
 }

@@ -88,7 +88,8 @@ module.exports = function (app) {
                     employmentStatus: req.body.employmentStatus,
                     skills: req.body.skills,
                     cohortId: req.body.cohortId,
-                    location: req.body.location
+                    location: req.body.location,
+                    isLooking: req.body.isLooking
                 }
                 Profile.create(profile).then(function (newProfile) {
                     User.findOneAndUpdate({ _id: userId }, { $set: { profile: newProfile._id } }, { new: true }).then(function () {

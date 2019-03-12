@@ -18,10 +18,10 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <header>
-            <nav>
+            {/* <nav>
               <Link to={`/`}>Home</Link> |
               <Link to={`/app`}>App</Link>
-            </nav>
+            </nav> */}
           </header>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/app' component={AppPage} />

@@ -9,7 +9,7 @@ const ProfileView = (props) => (
                 handleCloseProfile={props.handleCloseProfile}
                 userId={props.userId} 
                 accessToken={props.accessToken}
-                profile={props.profile}/> 
+                save={props.save}/> 
             : <Profile 
                 handleCloseProfile={props.handleCloseProfile}
                 profile={props.profile}/>}

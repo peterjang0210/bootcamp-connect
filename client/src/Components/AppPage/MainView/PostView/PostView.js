@@ -26,7 +26,8 @@ class PostView extends React.Component {
                 body: this.state.body,
                 location: this.state.location,
                 tags: tagArray,
-                category: this.state.category
+                category: this.state.category,
+                cohortId: this.props.cohortId
             },
             headers: {'Authorization': 'Bearer ' + this.props.accessToken}
         }).then((newPost) => {

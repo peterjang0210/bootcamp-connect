@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Registration from "./Registration";
 import Login from "./Login";
 import * as $ from 'axios';
+import "./Styles.css"
 
 const Alert = (props) => {
     return (
@@ -73,19 +74,30 @@ class HomePage extends Component {
                     localStorage.setItem('userId', response.data.verifiedUser._id);
                     localStorage.setItem('cohortId', response.data.verifiedUser.cohortId);
                     $({
-                        url:"/api/profiles",
-                        method: "POST",
-                        data: {
-                            userId: response.data.verifiedUser._id,
-                            email: this.state.username
-                        },
+                        url: `/api/users/${response.data.verifiedUser._id}`,
+                        method: "GET",
                         headers: { 'Authorization': 'Bearer ' + response.data.token }
-                    }).then((profile) => {
-                        localStorage.setItem("profileId", profile.data._id);
+                    }).then((user) => {
+                        if(user.data){
+                            localStorage.setItem("profileId", user.data._id);
+                            this.setLocation(response.status);
+                        }
+                        else{
+                            $({
+                                url:"/api/profiles",
+                                method: "POST",
+                                data: {
+                                    userId: response.data.verifiedUser._id,
+                                    email: this.state.username
+                                },
+                                headers: { 'Authorization': 'Bearer ' + response.data.token }
+                            }).then((profile) => {
+                                localStorage.setItem("profileId", profile.data._id);
+                                this.setLocation(response.status);
+                            })
+                        }
                     })
-                    this.setLocation(response.status);
                 };
-
             })
     }
 
@@ -106,7 +118,6 @@ class HomePage extends Component {
         ) : (
                 document.location.href = "/"
             )
-
     }
 
     toggleLogin = (event) => {
