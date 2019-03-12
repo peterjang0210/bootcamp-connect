@@ -1,20 +1,15 @@
 import React from 'react';
 
 const Login = (props) => (
-    <div style={styles.container}>
-        <p style={styles.paragraphStyle}>Login Page</p>
-        <br></br>
-
-        <nav>
-        <a href="/"> Home </a>
-        <br></br>
-        <a href="/contact">Contact</a>
-        <br></br>
-        <a href="/profile">Profile</a>
-        </nav>
-
-    </div>
-    
+    <form className="loginForm">
+       <label className="inputLabel">Username: </label>
+       <input name="username" placeholder="Enter username" onChange={props.handleChange}></input>
+       <label className="inputLabel">Password: </label>
+       <input name="password" placeholder="Enter Password" onChange={props.handleChange}></input>
+       <p></p>
+       <button className="loginButton" type="submit" onClick={props.handleLogin}>Login</button>
+       <p>Not yet Registered? Click <a href="/#" onClick={props.openRegister}>here</a> to register instead.</p>
+   </form>
 )
 
 const styles = {

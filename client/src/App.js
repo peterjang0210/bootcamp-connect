@@ -15,21 +15,18 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-      <div className="App">
-        {/* <header className="App-header">
-
-          <h1>BootcampConnect</h1>
-          <a className="loginbutton" href="/login">Login</a>
-        </header> */}
-
-
-        <Route exact path="/" component={HomePage}/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/contact" component={Contacts}/>
-        <Route exact path="/profile" component={Profile}/>
-      </div>
-      </Router>
+      <BrowserRouter>
+        <div>
+          <header>
+            {/* <nav>
+              <Link to={`/`}>Home</Link> |
+              <Link to={`/app`}>App</Link>
+            </nav> */}
+          </header>
+            <Route exact path='/' component={HomePage} />
+            <Route exact path='/app' component={AppPage} />
+        </div>
+      </BrowserRouter>
     );
   }
 };
