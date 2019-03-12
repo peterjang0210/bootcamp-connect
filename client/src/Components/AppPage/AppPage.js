@@ -14,7 +14,10 @@ class AppPage extends React.Component {
         userId: localStorage.getItem("userId"),
         cohortId: localStorage.getItem("cohortId"),
         accessToken: localStorage.getItem("token"),
-        canEdit: false
+        // userId: "5c86a8ea9b7bc3bc21709df8",
+        // cohortId: "GTATL201901",
+        // accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzg2YThlYTliN2JjM2JjMjE3MDlkZjgiLCJjb2hvcnRJZCI6IkdUQVRMMjAxOTAxIiwiaWF0IjoxNTUyMzYxMTI4LCJleHAiOjE1NTIzNzE5Mjh9.0RTSDkEL9FCJGgbNxRR2vpgktpLKbB-ySYtLXBVTl_k",
+        canEdit: true
     }
 
     componentDidMount() {
@@ -32,7 +35,7 @@ class AppPage extends React.Component {
             this.setState({
                 userProfile: userProfile.data,
             });
-        })
+            })
         $({
             url: '/api/profiles',
             method: "GET",
