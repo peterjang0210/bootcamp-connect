@@ -12,7 +12,7 @@ const Login = (props) => (
                 <input className="inputField" name="password" placeholder="Enter Password" onChange={props.handleChange}></input>
             </div>
         </div>
-        <br/><br/><br/>
+        <br/><br/><br/><br/>
         <button className="loginButton" type="submit" onClick={props.handleLogin}>Login</button>
         <p>Not yet Registered? Click <a href="/#" onClick={props.openRegister}>here</a> to register instead.</p>
     </form>

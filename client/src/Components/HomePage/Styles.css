@@ -87,6 +87,7 @@ header {
     clear: left;
     width: 250px;
     text-align: right;
+    font-size: 18px;
 }
 
 .inputField {
