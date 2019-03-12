@@ -67,14 +67,27 @@ class UserProfile extends React.Component {
 
     handleAddLinks = (event) => {
         event.preventDefault();
-        const newLink = { URL: this.state.newURL, linkDescription: this.state.newLinkDescription }
+        const newLink = { URL: this.state.URL, linkDescription: this.state.linkDescription }
         this.setState({ links: this.state.links.concat(newLink) })
     }
 
     handleDeleteLinks = (event) => {
         event.preventDefault();
-        const newLinkList = this.state.links.splice(event.target.id - 1, 1);
-        this.setState({links: newLinkList});
+        console.log("link delete");
+        console.log(event.target.id);
+        if(event.target.id === 0) {
+            if(this.state.links.length > 1){
+                const newLinkList = this.state.links.splice(event.target.id - 1, 1);
+                this.setState({links: newLinkList});
+            }
+            else{
+                this.setState({links: []});
+            }
+        }
+        else{
+            const newLinkList = this.state.links.splice(event.target.id - 1, 1);
+            this.setState({links: newLinkList});
+        }
     }
 
     handleAddSkills = (event) => {
@@ -85,6 +98,7 @@ class UserProfile extends React.Component {
 
     handleDeleteSkills = (event) => {
         event.preventDefault();
+        console.log(event.target.id);
         const newSkillList = this.state.skills.splice(event.target.id - 1, 1);
         this.setState({skills: newSkillList});
     }
@@ -92,6 +106,9 @@ class UserProfile extends React.Component {
     render() {
         return (
             <div className="card">
+            <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
                 <div className="card-body">
                     <div className="form-group">
                         <label>First Name</label>
@@ -120,7 +137,7 @@ class UserProfile extends React.Component {
                         <label>URL</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
                         <label>Link Description</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.newLinkDescription} name="LinkDescription" />
+                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.newLinkDescription} name="linkDescription" />
                         <button onClick={this.handleAddLinks}>Add</button>
                     </div>
                     <div className="form-group">

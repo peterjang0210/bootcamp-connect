@@ -1,21 +1,26 @@
 import React from "react";
 import ContactsFilter from './ContactsFilter';
 import ContactsList from './ContactsList';
+import * as $ from "axios";
 
 class ContactsView extends React.Component {
     state = {
-        isCohort: true,
-        cohortProfiles: [],
-        allProfiles: [],
+        isCohort: false,
     }
 
     componentDidMount() {
-        console.log(this.props.profiles);
+        const allProfiles = this.props.profiles;
+        const cohortProfiles = allProfiles.filter((profile) => {return profile.cohortId === this.state.cohortId});
         this.setState({
-            allProfiles: this.props.profiles
+            allProfiles: allProfiles,
+            cohortProfiles: cohortProfiles,
         })
     }
-
+    getCohortProfiles = () => {
+        const cohortProfiles = this.props.profiles.filter((profile) => { return profile.cohortId === this.props.cohortId })
+        console.log('cohort profiles ',cohortProfiles)
+        return cohortProfiles
+    }
     handleShowCohortList = (e) => {
         e.preventDefault();
         console.log('showCohort was clicked')
@@ -33,8 +38,18 @@ class ContactsView extends React.Component {
 
     render() {
         return <div>
-            <ContactsFilter showCohort={this.handleShowCohortList} showAll={this.handleShowAllList} />
-            {this.state.isCohort ? <ContactsList contactsList={this.state.cohortProfiles} /> : <ContactsList contactsList={this.props.profiles} />}
+            <ContactsFilter 
+                showCohort={this.handleShowCohortList} 
+                showAll={this.handleShowAllList} />
+            {this.state.isCohort 
+                ? 
+            <ContactsList 
+                handleContactClick={this.props.handleContactClick}
+                contactsList={this.getCohortProfiles()} /> 
+                : 
+            <ContactsList 
+                handleContactClick={this.props.handleContactClick}
+                contactsList={this.props.profiles} />}
         </div>
     }
 }

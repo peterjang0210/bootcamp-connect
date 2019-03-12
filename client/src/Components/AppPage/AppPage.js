@@ -18,15 +18,14 @@ class AppPage extends React.Component {
     }
 
     componentDidMount() {
-        // get the users profile data via the access token using ajax request
         $({
             url: `/api/users/${this.state.userId}`,
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         }).then((userProfile) => {
+            console.log("userProfile: ", userProfile.data)
             this.setState({
                 userProfile: userProfile.data,
-                activeProfile: userProfile.data
             });
         })
         $({
@@ -34,20 +33,24 @@ class AppPage extends React.Component {
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         })
-            .then((allProfiles) => {
+            .then((getProfilesResponse) => {
+                const allProfiles = getProfilesResponse.data;
+                console.log('all profiles', allProfiles)
                 this.setState({
-                    profiles: allProfiles.data,
-                    // viewPosts: true
+                    profiles: allProfiles,
                 })
             })
-        console.log(this.state.profiles);
+        console.log('\n app page straight up mounted yo \n \n')
     }
-    handleContactClick = (e) => {
+    handleContactClick = (contactId, e) => {
         e.preventDefault();
-        const activeContactId = e.target.id;
-        const activeProfile = this.profiles.find((profile) => {
+        console.log('hello there the contact has been clicked')
+        const activeContactId = contactId;
+        console.log('and the active contact id is ', activeContactId)
+        const activeProfile = this.state.profiles.find((profile) => {
             return profile._id === activeContactId
-        }) 
+        })
+        console.log('active profile is ', activeProfile)
         this.setState({
             viewPosts: false,
             activeProfile: activeProfile
@@ -69,31 +72,37 @@ class AppPage extends React.Component {
             viewPosts: true,
             activeProfile: {},
             canEdit: false
-        
+
         })
     }
 
     render() {
         return (
             <div className="container">
-            <div className='row'>
-            <div className="col-4">
-                <SideNav profiles={this.state.profiles} userProfile={this.state.userProfile}  handleUserContactClick={this.handleUserContactClick} handleContactClick={this.handleContactClick} />
-            </div>
-            <div className='col-8' >
-                {this.state.viewPosts 
-                ? <PostView 
-                    userId={this.state.userId}
-                    cohortId={this.state.cohortId}
-                    accessToken={this.state.accessToken} />
-                : <ProfileView 
-                    userId={this.state.userId}
-                    accessToken={this.state.accessToken}
-                    editable={this.state.canEdit}
-                    profile={this.state.activeProfile} />
-                }
-            </div>
-            </div>
+                <div className='row'>
+                    <div className="col-4">
+                        <SideNav
+                            cohortId={this.state.cohortId}
+                            profiles={this.state.profiles}
+                            userProfile={this.state.userProfile}
+                            handleUserContactClick={this.handleUserContactClick}
+                            handleContactClick={this.handleContactClick} />
+                    </div>
+                    <div className='col-8' >
+                        {this.state.viewPosts
+                            ? <PostView
+                                userId={this.state.userId}
+                                cohortId={this.state.cohortId}
+                                accessToken={this.state.accessToken} />
+                            : <ProfileView
+                                handleCloseProfile={this.handleCloseProfile}
+                                userId={this.state.userId}
+                                accessToken={this.state.accessToken}
+                                editable={this.state.canEdit}
+                                profile={this.state.activeProfile} />
+                        }
+                    </div>
+                </div>
             </div>
         )
     }

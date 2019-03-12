@@ -6,9 +6,12 @@ const ProfileView = (props) => (
     <div>
         {props.editable
             ? <UserProfile 
+                handleCloseProfile={props.handleCloseProfile}
                 userId={props.userId} 
                 accessToken={props.accessToken}/> 
-            : <Profile profile={props.profile}/>}
+            : <Profile 
+                handleCloseProfile={props.handleCloseProfile}
+                profile={props.profile}/>}
     </div>
 )
 
