@@ -88,7 +88,8 @@ class HomePage extends Component {
                                 method: "POST",
                                 data: {
                                     userId: response.data.verifiedUser._id,
-                                    email: this.state.username
+                                    email: this.state.username,
+                                    cohortId: this.state.corhortId
                                 },
                                 headers: { 'Authorization': 'Bearer ' + response.data.token }
                             }).then((profile) => {
