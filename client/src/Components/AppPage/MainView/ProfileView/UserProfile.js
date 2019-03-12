@@ -77,6 +77,10 @@ class UserProfile extends React.Component {
         this.setState({ isLooking: false });
     }
 
+    handleSkillsValue = (event) => {
+        this.setState({skillName: event.target.value});
+    }
+
     handleAddLinks = (event) => {
         event.preventDefault();
         const newLink = { URL: this.state.URL, linkDescription: this.state.linkDescription }
@@ -155,7 +159,21 @@ class UserProfile extends React.Component {
                         {this.state.skills.map((skill, i) => <div className="card" key={i}><p>{skill.skillName}</p><p>{skill.skillLevel}</p><button onClick={this.handleDeleteSkills} id={i}>Delete</button></div>)}
                         <hr />
                         <label>Skill Name</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" />
+                        <select className="custom-select" defaultValue="0" onChange={this.handleSkillsValue}>
+                            <option value="0" disabled>Select a skill</option>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="Javascript">Javascript</option>
+                            <option value="jQuery">jQuery</option>
+                            <option value="Node.js">Node.js</option>
+                            <option value="Express">Express</option>
+                            <option value="MySQL">MySQL</option>
+                            <option value="MongoDB">MongoDB</option>
+                            <option value="Sequelize">Sequelize</option>
+                            <option value="Mongoose">Mongoose</option>
+                            <option value="React.js">React.js</option>
+                        </select>
+                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
                         <label>Skill Level</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
                         <button onClick={this.handleAddSkills}>Add</button>
@@ -165,11 +183,11 @@ class UserProfile extends React.Component {
                         <input className="card-text form-control" value={this.state.location} onChange={this.handleChange} name="location" />
                     </div>
                     <div className="form-check">
-                        <input onClick={this.handleCheckOne} className="form-check-input" type="radio"/>
+                        <input onClick={this.handleCheckOne} className="form-check-input" type="radio" />
                         <label className="form-check-label">Looking for a job</label>
                     </div>
                     <div className="form-check">
-                        <input onClick={this.handleCheckTwo} className="form-check-input" type="radio"/>
+                        <input onClick={this.handleCheckTwo} className="form-check-input" type="radio" />
                         <label className="form-check-label">Not looking for a job</label>
                     </div>
                     <button onClick={this.handleSubmit}>Save Changes</button>
