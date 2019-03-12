@@ -15,13 +15,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 
-mongoose.connect('mongodb://localhost/bootcampDB', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/bootcampDB', { useNewUrlParser: true });
 
 
 require('./routes/html-routes')(app);
 require('./routes/api-routes')(app);
 
-app.get("*", (req, res) => {
+app.get("*", (req, res) => {a
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
