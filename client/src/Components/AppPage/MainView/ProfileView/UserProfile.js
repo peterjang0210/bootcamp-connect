@@ -116,7 +116,7 @@ class UserProfile extends React.Component {
 
     render() {
         return (
-            <div className="card">
+            <div className="card bounce-in-top">
                 <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -143,7 +143,7 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Links</h5>
-                        {this.state.links.map((link, i) => <span className="badge badge-pill badge-primary" key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button className="btn btn-danger" onClick={this.handleDeleteLinks} id={i}><i className="fas fa-times"></i></button></span>)}
+                        {this.state.links.map((link, i) => <span className="badge badge-pill badge-primary" key={i}><a className="btn" href={link.URL}>{link.linkDescription}</a><button className="btn" onClick={this.handleDeleteLinks} id={i}><i className="fas fa-times"></i></button></span>)}
                         <hr />
                         <label>URL</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
@@ -157,7 +157,7 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Skills</h5>
-                        {this.state.skills.map((skill, i) => <span className="badge badge-pill badge-primary" key={i}>{skill.skillName}: {skill.skillLevel}     <button className="btn btn-danger" onClick={this.handleDeleteSkills} id={i}><i className="fas fa-times"></i></button></span>)}
+                        {this.state.skills.map((skill, i) => <span className="badge badge-pill badge-primary" key={i}>{skill.skillName}: {skill.skillLevel}     <button className="btn" onClick={this.handleDeleteSkills} id={i}><i className="fas fa-times"></i></button></span>)}
                         <hr />
                         <label>Skill Name</label>
                         <select className="custom-select" defaultValue="0" onChange={this.handleSkillsValue}>
@@ -191,8 +191,8 @@ class UserProfile extends React.Component {
                         <input onClick={this.handleCheckTwo} className="form-check-input" type="radio" />
                         <label className="form-check-label">Not looking for a job</label>
                     </div>
-                    <button onClick={this.handleSubmit}>Save Changes</button>
                 </div>
+                <button className="filterListButton" onClick={this.handleSubmit}>Save Changes</button>
             </div>)
     }
 }

@@ -3,7 +3,7 @@ import UserProfile from "./UserProfile";
 import Profile from "./Profile";
 
 const ProfileView = (props) => (
-    <div>
+    <div className="bounce-in-top">
         {props.editable
             ? <UserProfile 
                 handleCloseProfile={props.handleCloseProfile}

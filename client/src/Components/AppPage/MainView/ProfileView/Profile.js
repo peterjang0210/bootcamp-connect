@@ -14,7 +14,7 @@ const Profile = (props) => (
             <h6 className="card-text">Links</h6>
             {props.profile.links && props.profile.links.map((link, i) => 
             <div key={i}>
-                <span className="badge badge-pill badge-primary"><a className="card-text" href={link.URL}>{link.linkDescription}</a></span>
+                <span className="badge badge-pill badge-primary"><a className="card-text profileLinks" href={link.URL}>{link.linkDescription}</a></span>
             </div>)}
             <p className="card-text">Employment Status: {props.profile.employmentStatus}</p>
             <h6 className="card-text">Skills</h6>

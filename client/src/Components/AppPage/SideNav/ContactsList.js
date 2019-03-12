@@ -2,7 +2,7 @@ import React from 'react';
 import Contact from './Contact';
 
 const ContactsList = (props) => (
-    <ul className="list-unstyled list-group pull-down" id="contact-list">
+    <ul className="list-unstyled list-group pull-down bounce-in-top" id="contact-list">
     {props.contactsList.map(contact => 
     <Contact 
         handleContactClick={props.handleContactClick}

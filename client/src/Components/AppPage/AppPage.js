@@ -84,8 +84,7 @@ class AppPage extends React.Component {
 
     handleUserProfileSave = () => {
         this.setState({
-            viewPosts: true,
-            activeProfile: {}
+            canEdit: false
         });
         this.getProfiles();
     }
