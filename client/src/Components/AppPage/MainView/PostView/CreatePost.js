@@ -26,7 +26,7 @@ const CreatePost = (props) => (
                         <label>Category</label>
                         <input name="category" onChange={props.handleChange} placeholder="general, meetup, employment" className="form-control" />
                     </div>
-                    <button type="submit" onClick={props.createPost}>Create Post</button>
+                    <button type="submit" className="createBtn" onClick={props.createPost}>Create Post</button>
                 </form>
             </div>
         </div>
