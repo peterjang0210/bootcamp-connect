@@ -17,20 +17,17 @@ class ContactsView extends React.Component {
         })
     }
     getCohortProfiles = () => {
-        const cohortProfiles = this.props.profiles.filter((profile) => { return profile.cohortId === this.props.cohortId })
-        console.log('cohort profiles ',cohortProfiles)
+        const cohortProfiles = this.props.profiles.filter((profile) => { return profile.cohortId === this.props.cohortId });
         return cohortProfiles
     }
     handleShowCohortList = (e) => {
         e.preventDefault();
-        console.log('showCohort was clicked')
         this.setState({
             isCohort: true
         })
     }
     handleShowAllList = (e) => {
         e.preventDefault();
-        console.log('show all was clicked')
         this.setState({
             isCohort: false
         })
