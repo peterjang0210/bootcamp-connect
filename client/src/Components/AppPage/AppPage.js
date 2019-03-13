@@ -119,6 +119,7 @@ class AppPage extends React.Component {
                         }
                     </div>
                 </div>
+                <footer className="footer">Copyright <i className="far fa-copyright"></i></footer>
             </div>
         )
     }

@@ -138,7 +138,7 @@ class HomePage extends Component {
     render() {
         return (
             <div className="loginRegister">
-                <img className="largeLogo" src={require("../Images/bccLogo.png")}/>
+                <img className="largeLogo" src={require("./../Images/bccLogo.png")}/>
                 <Alert alert={this.state.alert} />
                 {this.state.registeredUser === false ? (
                     <Registration handleChange={this.handleChange} handleRegister={this.handleRegister} openLogin={this.toggleLogin} />

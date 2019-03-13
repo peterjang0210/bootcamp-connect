@@ -1,9 +1,15 @@
-
+html{
+        height: 100%;
+}
 
 body {
     background-color: #282c34;
-    
+    font-family: 'Nunito', sans-serif;
+    min-height:100%; 
+    position:relative; 
+    padding-bottom: 60px;
 }
+
 header {
     padding: 10px;
 }
@@ -26,6 +32,7 @@ header {
     border-radius: 25px;
     font-size: 1.1rem;
     text-decoration: none;
+    float: none;
 }
 
 .inputLabel {
@@ -39,6 +46,10 @@ header {
 .img-fluid {
     max-width: 100%;
     height: 60px;
+}
+
+.skillInput{
+        display: inline;
 }
 
 .filterListButton {
@@ -69,7 +80,7 @@ header {
 }
 
 .filterPost{
-        margin: 5px;
+        margin: 10px 0px 0px 5px;
         color: white;
         background-color: rgb(110, 14, 33);
         border-radius: 10px;
@@ -79,6 +90,7 @@ header {
 
 .badge-primary{
         background-color: rgb(110, 14, 33);
+        font-size: 15px;
 }
 
 .profileControl:hover {
@@ -127,13 +139,24 @@ header {
         color: white;
 }
 
+.card-text{
+        font-size: 20px;
+}
+
 .profileLinks:hover{
         text-decoration: none;
         cursor: pointer;
+        color: gray;
 }
 
 .list-group-item {
     cursor: pointer;
+}
+
+.profilePic{
+        float: right;
+        max-width: 100%;
+        height: 100px;
 }
 
 .largeLogo {
@@ -141,6 +164,18 @@ header {
     padding-bottom: 20px;
     width: 20%;
 }
+
+.footer {
+        height: 60px;
+        background-color:rgb(110, 14, 33);
+        color: #ffffff;    
+        min-width: 100%;
+        margin-top: 60px;
+        padding-top: 15px;
+        text-align: center;
+        position: absolute; 
+        left: 0 ; right: 0; bottom: 0; 
+    }
 
 .postCard {
         margin: 10px;
@@ -186,6 +221,19 @@ header {
         }
       }
       
+.inputLabel {
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 250px;
+    text-align: right;
+}
+
+.inputField {
+  display: inline-block;
+  margin-right: 100px;
+  float: left;
+}
 
 /* .closeButton {
     width: 18px;
