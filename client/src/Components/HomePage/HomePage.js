@@ -29,7 +29,6 @@ class HomePage extends Component {
 
 
     handleChange = (event) => {
-        console.log(event.target.value);
         this.setState({ [event.target.name]: event.target.value })
     };
 
@@ -42,15 +41,13 @@ class HomePage extends Component {
     handleRegister = (event) => {
         event.preventDefault();
         let newUser = {
-            username: this.state.username,
+            username: this.state.username.toLowerCase(),
             password: this.state.password,
             cohortId: this.state.cohortId
         };
-        console.log(newUser);
         if (this.state.password === this.state.password2) {
             $.post('/api/users/registration', newUser)
             .then((response) => {
-                console.log("Registration Response: ", response)
                 this.loginWorkflow(newUser);
             })
         } else {
@@ -62,8 +59,6 @@ class HomePage extends Component {
     loginWorkflow = (props) => {
         $.post('/api/users/session', props)
             .then((response) => {
-                console.log("Login Response: ", response);
-                console.log("token", response.data.token);
 
 
                 if (response.data === "Wrong Password") {
@@ -105,11 +100,10 @@ class HomePage extends Component {
     handleLogin = (event) => {
         event.preventDefault();
         let user = {
-            username: this.state.username,
+            username: this.state.username.toLowerCase(),
             password: this.state.password,
             cohortId: this.state.cohortId
         };
-        console.log(user);
         this.loginWorkflow(user);
     }
 
