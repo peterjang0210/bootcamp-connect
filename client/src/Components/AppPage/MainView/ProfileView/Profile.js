@@ -14,13 +14,13 @@ const Profile = (props) => (
             <h5 className="card-text">Links:</h5>
             {props.profile.links && props.profile.links.map((link, i) => 
             <div key={i}>
-                <a className="card-text" href={link.URL}>{link.linkDescription}</a>
+                <span className="badge badge-pill badge-primary"><a className="card-text profileLinks" href={link.URL}>{link.linkDescription}</a></span>
             </div>)}
             <h5 className="card-text">Employment Status: {props.profile.employmentStatus}</h5>
             <h5 className="card-text">Skills:</h5>
             {props.profile.skills && props.profile.skills.map((skill, i) =>
             <div key={i}>
-                <p className="card-text">{skill.skillName}: {skill.skillLevel}</p>
+                <span className="badge badge-pill badge-primary">{skill.skillName}: {skill.skillLevel}</span>
             </div>)}
             <h5 className="card-text">Location: {props.profile.location}</h5>
             {props.profile.isLooking ? <h5 className="card-text">Looking for Employment</h5>: <p className="card-text">Not Looking for Employment</p>}

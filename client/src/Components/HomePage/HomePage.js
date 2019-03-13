@@ -88,7 +88,8 @@ class HomePage extends Component {
                                 method: "POST",
                                 data: {
                                     userId: response.data.verifiedUser._id,
-                                    email: this.state.username
+                                    email: this.state.username,
+                                    cohortId: this.state.corhortId
                                 },
                                 headers: { 'Authorization': 'Bearer ' + response.data.token }
                             }).then((profile) => {
@@ -137,6 +138,7 @@ class HomePage extends Component {
     render() {
         return (
             <div className="loginRegister">
+                <img className="largeLogo" src={require("../Images/bccLogo.png")}/>
                 <Alert alert={this.state.alert} />
                 {this.state.registeredUser === false ? (
                     <Registration handleChange={this.handleChange} handleRegister={this.handleRegister} openLogin={this.toggleLogin} />

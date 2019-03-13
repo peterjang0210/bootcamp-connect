@@ -49,7 +49,11 @@ class PostView extends React.Component {
         });
     }
 
-    filterClick = (event) => {
+    filterAllClick = (event) => {
+        this.getAllPosts();
+    }
+
+    filterCohortClick = (event) => {
         event.preventDefault();
         this.getFilteredPosts();
     }
@@ -79,7 +83,7 @@ class PostView extends React.Component {
                     category={this.state.category}
                     createPost={this.handleSubmit}
                     handleChange={this.handleChange} />
-                <FilterNav filterClick={this.filterClick}/>
+                <FilterNav filterCohortClick={this.filterCohortClick} filterAllClick={this.filterAllClick}/>
                 <PostList posts={this.state.posts}/>
             </div>
         )
