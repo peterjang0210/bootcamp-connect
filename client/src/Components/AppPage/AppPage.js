@@ -22,7 +22,6 @@ class AppPage extends React.Component {
 
     componentDidMount() {
         this.getProfiles();
-        console.log('\n app page straight up mounted yo \n \n')
     }
 
     getProfiles = () => {
@@ -31,7 +30,6 @@ class AppPage extends React.Component {
             method: "GET",
             headers: { 'Authorization': 'Bearer ' + this.state.accessToken }
         }).then((userProfile) => {
-            console.log("userProfile: ", userProfile.data)
             this.setState({
                 userProfile: userProfile.data,
             });
@@ -43,7 +41,6 @@ class AppPage extends React.Component {
         })
             .then((getProfilesResponse) => {
                 const allProfiles = getProfilesResponse.data;
-                console.log('all profiles', allProfiles)
                 this.setState({
                     profiles: allProfiles,
                     activeProfile: this.state.userProfile,
@@ -54,13 +51,10 @@ class AppPage extends React.Component {
 
     handleContactClick = (contactId, e) => {
         e.preventDefault();
-        console.log('hello there the contact has been clicked')
         const activeContactId = contactId;
-        console.log('and the active contact id is ', activeContactId)
         const activeProfile = this.state.profiles.find((profile) => {
             return profile._id === activeContactId
         })
-        console.log('active profile is ', activeProfile)
         this.setState({
             viewPosts: false,
             activeProfile: activeProfile,

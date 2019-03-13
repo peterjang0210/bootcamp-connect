@@ -116,8 +116,21 @@ header {
         color: white;
 }
 
+.card-title{
+        font-weight: bold;
+        font-size: 30px;
+}
+
 .card-text{
         font-size: 20px;
+}
+
+.tags{
+        font-weight: bold;
+}
+
+.timestamp{
+        font-size: 15px;
 }
 
 .profileLinks:hover{
