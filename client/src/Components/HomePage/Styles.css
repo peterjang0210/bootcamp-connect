@@ -61,6 +61,20 @@ header {
     text-decoration: none;
 }
 
+.addBtn{
+        color: white;
+        background: rgb(110, 14, 33);
+        margin-top: 5px;
+        border-radius: 10px;
+}
+
+.createBtn{
+        color: white;
+        background: rgb(110, 14, 33);
+        margin-top: 5px;
+        border-radius: 10px;  
+}
+
 .profileControl {
     cursor:pointer;
     color: rgb(110, 14, 33);
@@ -91,6 +105,7 @@ header {
 .badge-primary{
         background-color: rgb(110, 14, 33);
         font-size: 15px;
+        margin: 5px;
 }
 
 .profileControl:hover {

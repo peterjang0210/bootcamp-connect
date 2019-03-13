@@ -156,7 +156,7 @@ class UserProfile extends React.Component {
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
                         <label>Link Description</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newLinkDescription} name="linkDescription" />
-                        <button onClick={this.handleAddLinks}>Add</button>
+                        <button className="addBtn" onClick={this.handleAddLinks}>Add</button>
                     </div>
                     <div className="form-group">
                         <label>Employment Status</label>
@@ -184,7 +184,7 @@ class UserProfile extends React.Component {
                         <input type="text" className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
                         <label>Skill Level</label>
                         <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control skillInput" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
-                        <button onClick={this.handleAddSkills}>Add</button>
+                        <button className="addBtn" onClick={this.handleAddSkills}>Add</button>
                     </div>
                     <div className="form-group">
                         <label>Location</label>
