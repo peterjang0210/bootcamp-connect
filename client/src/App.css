@@ -1,6 +1,27 @@
 .App {
   text-align: center;
 }
+#root {
+  padding: 15px;
+}
+
+.isLooking {
+    border-style: solid;
+    border-color: #1c66d4;
+    border-width: 3px;
+}
+
+.isNotLooking {
+    border-style: solid;
+    border-color: white;
+    border-width: 1px;
+}
+
+
+
+.contact {
+  margin: 5px;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;

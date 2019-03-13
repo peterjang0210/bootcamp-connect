@@ -12,6 +12,7 @@ class UserProfile extends React.Component {
         links: [],
         skills: [],
         location: "",
+        isLooking: false,
         URL: "",
         linkDescription: "",
         skillName: "",
@@ -33,7 +34,8 @@ class UserProfile extends React.Component {
                 description: profile.data.description,
                 links: profile.data.links,
                 skills: profile.data.skills,
-                location: profile.data.location
+                location: profile.data.location,
+                isLooking: profile.data.isLooking
             });
         })
     }
@@ -57,12 +59,27 @@ class UserProfile extends React.Component {
                 skills: this.state.skills,
                 description: this.state.description,
                 employmentStatus: this.state.employmentStatus,
-                location: this.state.location
+                location: this.state.location,
+                isLooking: this.state.isLooking,
+                cohortId: localStorage.getItem("cohortId")
             },
             headers: { 'Authorization': 'Bearer ' + this.props.accessToken }
         }).then((response) => {
             console.log(response);
+            this.props.save();
         })
+    }
+
+    handleCheckOne = (event) => {
+        this.setState({ isLooking: true });
+    }
+
+    handleCheckTwo = (event) => {
+        this.setState({ isLooking: false });
+    }
+
+    handleSkillsValue = (event) => {
+        this.setState({skillName: event.target.value});
     }
 
     handleAddLinks = (event) => {
@@ -73,21 +90,12 @@ class UserProfile extends React.Component {
 
     handleDeleteLinks = (event) => {
         event.preventDefault();
-        console.log("link delete");
-        console.log(event.target.id);
-        if(event.target.id === 0) {
-            if(this.state.links.length > 1){
-                const newLinkList = this.state.links.splice(event.target.id - 1, 1);
-                this.setState({links: newLinkList});
+        const newLinkList = this.state.links.filter((link, i) => {
+            if (event.target.id != i) {
+                return link;
             }
-            else{
-                this.setState({links: []});
-            }
-        }
-        else{
-            const newLinkList = this.state.links.splice(event.target.id - 1, 1);
-            this.setState({links: newLinkList});
-        }
+        })
+        this.setState({ links: newLinkList });
     }
 
     handleAddSkills = (event) => {
@@ -98,17 +106,20 @@ class UserProfile extends React.Component {
 
     handleDeleteSkills = (event) => {
         event.preventDefault();
-        console.log(event.target.id);
-        const newSkillList = this.state.skills.splice(event.target.id - 1, 1);
-        this.setState({skills: newSkillList});
+        const newSkillList = this.state.skills.filter((skill, i) => {
+            if (event.target.id != i) {
+                return skill;
+            }
+        })
+        this.setState({ skills: newSkillList });
     }
 
     render() {
         return (
             <div className="card bounce-in-top">
-            <button type="button" onClick={this.props.handleCloseProfile} className="closeButton" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+                <button type="button" onClick={this.props.handleCloseProfile} className="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <div className="card-body">
                     <div className="form-group">
                         <label>First Name</label>
@@ -132,8 +143,8 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Links</h5>
-                        {this.state.links.map((link, i) => <span key={i}><a className="btn btn-primary" href={link.URL}>{link.linkDescription}</a><button onClick={this.handleDeleteLinks} id={i}>Delete</button></span>)}
-                        <hr/>
+                        {this.state.links.map((link, i) => <span className="badge badge-pill badge-primary" key={i}><a className="btn" href={link.URL}>{link.linkDescription}</a><button className="btn" onClick={this.handleDeleteLinks} id={i}><i className="fas fa-times"></i></button></span>)}
+                        <hr />
                         <label>URL</label>
                         <input className="card-text form-control" onChange={this.handleChange} value={this.state.newURL} name="URL" />
                         <label>Link Description</label>
@@ -146,17 +157,39 @@ class UserProfile extends React.Component {
                     </div>
                     <div className="form-group">
                         <h5>Skills</h5>
-                        {this.state.skills.map((skill, i) => <div className="card" key={i}><p>{skill.skillName}</p><p>{skill.skillLevel}</p><button onClick={this.handleDeleteSkills} id={i}>Delete</button></div>)}
-                        <hr/>
+                        {this.state.skills.map((skill, i) => <span className="badge badge-pill badge-primary" key={i}>{skill.skillName}: {skill.skillLevel}     <button className="btn" onClick={this.handleDeleteSkills} id={i}><i className="fas fa-times"></i></button></span>)}
+                        <hr />
                         <label>Skill Name</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" />
+                        <select className="custom-select" defaultValue="0" onChange={this.handleSkillsValue}>
+                            <option value="0" disabled>Select a skill</option>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="Javascript">Javascript</option>
+                            <option value="jQuery">jQuery</option>
+                            <option value="Node.js">Node.js</option>
+                            <option value="Express">Express</option>
+                            <option value="MySQL">MySQL</option>
+                            <option value="MongoDB">MongoDB</option>
+                            <option value="Sequelize">Sequelize</option>
+                            <option value="Mongoose">Mongoose</option>
+                            <option value="React.js">React.js</option>
+                        </select>
+                        <input type="text" className="card-text form-control" onChange={this.handleChange} value={this.state.skillName} name="skillName" placeholder="If you have a skill not listed above, enter it here"/>
                         <label>Skill Level</label>
-                        <input className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
+                        <input type="number" min="1" max="5" placeholder="Enter skill level 1-5" className="card-text form-control" onChange={this.handleChange} value={this.state.skillLevel} name="skillLevel" />
                         <button onClick={this.handleAddSkills}>Add</button>
                     </div>
                     <div className="form-group">
                         <label>Location</label>
                         <input className="card-text form-control" value={this.state.location} onChange={this.handleChange} name="location" />
+                    </div>
+                    <div className="form-check">
+                        <input onClick={this.handleCheckOne} className="form-check-input" type="radio" />
+                        <label className="form-check-label">Looking for a job</label>
+                    </div>
+                    <div className="form-check">
+                        <input onClick={this.handleCheckTwo} className="form-check-input" type="radio" />
+                        <label className="form-check-label">Not looking for a job</label>
                     </div>
                 </div>
                 <button className="filterListButton" onClick={this.handleSubmit}>Save Changes</button>
